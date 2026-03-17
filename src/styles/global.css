@@ -9,9 +9,88 @@ body {
   height: 100%;
 }
 
+.site-body {
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at top, rgba(34, 211, 238, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(2, 6, 23, 1) 0%, rgba(3, 10, 28, 1) 100%);
+  color: #e2e8f0;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.site-main {
+  position: relative;
+  z-index: 10;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+}
+
+.site-grid-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.site-scanline-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.site-ambient {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 9999px;
+  filter: blur(110px);
+  opacity: 0.22;
+}
+
+.site-ambient-top {
+  top: -11rem;
+  right: -8rem;
+  background: rgba(34, 211, 238, 0.32);
+}
+
+.site-ambient-bottom {
+  left: -10rem;
+  bottom: -12rem;
+  background: rgba(14, 165, 233, 0.2);
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  animation: grid-scroll 20s linear infinite;
+}
+
+.scanline {
+  position: absolute;
+  bottom: 100%;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(34, 211, 238, 0.03) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0.12;
+  animation: scanline 8s linear infinite;
+}
+
 .glass-effect {
   background: rgba(15, 23, 42, 0.7);
   backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .neon-glow {
@@ -21,6 +100,30 @@ body {
 .btn-glow-hover:hover {
   box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
   transform: translateY(-1px);
+}
+
+@keyframes grid-scroll {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 0 50px;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    bottom: 100%;
+  }
+
+  80% {
+    bottom: 100%;
+  }
+
+  100% {
+    bottom: -100px;
+  }
 }
 
 .hero {
@@ -218,4 +321,3 @@ body {
 .deployment-card-button-disabled {
   @apply cursor-not-allowed border-slate-700 bg-transparent text-slate-500 hover:bg-transparent hover:text-slate-500;
 }
-

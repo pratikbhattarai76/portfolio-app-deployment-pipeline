@@ -10,5 +10,5 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 README.md
-UNDERSTANDING_THIS_PROJECT.md
-PROJECT_READING_WALKTHROUGH.md
+.github
+.github/workflows

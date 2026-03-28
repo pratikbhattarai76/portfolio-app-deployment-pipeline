@@ -1,9 +1,18 @@
 ---
-const navItems = [
-  { href: '#infrastructure', label: 'Infrastructure' },
-  { href: '#deployments', label: 'Deployments' },
+const desktopNavItems = [
+  { href: '#deployments', label: 'Services' },
+];
+
+const mobileNavItems = [
+  { href: '#deployments', label: 'Services' },
   { href: '#projects', label: 'Projects' },
   { href: '#contact', label: 'Contact' },
+];
+
+const projectNavItems = [
+  { href: '#private-cloud', label: 'Private Cloud Infrastructure' },
+  { href: '#malaideu', label: 'MalaiDeu' },
+  { href: '#portfolio-application', label: 'Portfolio Application' },
 ];
 ---
 
@@ -26,7 +35,7 @@ const navItems = [
         class="navbar-avatar h-8 w-8 rounded-full border border-cyber-accent object-cover"
         loading="eager"
       />
-      <span class="hidden text-xs font-semibold tracking-widest uppercase sm:block">
+      <span class="hidden text-xs font-semibold tracking-widest sm:block">
         Pratik
       </span>
     </a>
@@ -34,12 +43,32 @@ const navItems = [
     <div class="navbar-actions">
       <div class="navbar-links navbar-links-desktop" aria-label="Section navigation">
         {
-          navItems.map(({ href, label }) => (
+          desktopNavItems.map(({ href, label }) => (
             <a class="navbar-link" data-nav-link href={href}>
               {label}
             </a>
           ))
         }
+
+        <div class="navbar-link-group">
+          <a class="navbar-link navbar-link-group-trigger" data-nav-link href="#projects">
+            Projects
+          </a>
+
+          <div class="navbar-projects-menu glass-effect" aria-label="Project navigation">
+            {
+              projectNavItems.map(({ href, label }) => (
+                <a class="navbar-project-link" href={href}>
+                  {label}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <a class="navbar-link" data-nav-link href="#contact">
+          Contact
+        </a>
       </div>
 
       <button class="theme-toggle" data-theme-toggle type="button" aria-label="Activate light mode">
@@ -89,7 +118,7 @@ const navItems = [
   >
     <div class="navbar-mobile-links glass-effect">
       {
-        navItems.map(({ href, label }) => (
+        mobileNavItems.map(({ href, label }) => (
           <a class="navbar-link navbar-link-mobile" data-nav-link href={href}>
             {label}
           </a>

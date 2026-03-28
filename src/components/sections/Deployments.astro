@@ -1,23 +1,23 @@
 <section id="deployments" class="deployments-section">
   <div class="reveal-section">
     <header class="deployments-header reveal-item" style="--reveal-order: 0;">
-      <h2 class="deployments-title">Microservice Command Center</h2>
-      <p class="deployments-subtitle">Accessing Distributed Infrastructure</p>
+      <h2 class="deployments-title">Private Cloud Services</h2>
+      <p class="deployments-subtitle">Core Services Running in the Homelab</p>
     </header>
 
-    <div class="deployments-grid">
-    <article class="deployment-card deployment-card-interactive reveal-item" style="--reveal-order: 1;">
+    <div class="deployments-grid reveal-item" style="--reveal-order: 1;">
+    <article class="deployment-card deployment-card-interactive">
       <header class="deployment-card-header">
         <span class="deployment-card-icon-box" aria-hidden="true">
           <span class="material-symbols-outlined deployment-card-symbol">cloud_done</span>
         </span>
-        <span class="deployment-card-badge deployment-card-badge-green">PUBLIC_BETA</span>
+        <span class="deployment-card-badge deployment-card-badge-green">Public</span>
       </header>
 
       <h3 class="deployment-card-title">Nextcloud</h3>
       <p class="deployment-card-text">
-        Deployment of a high-concurrency file storage and collaboration engine. Optimized for
-        low-latency web access.
+        Self-hosted file storage and collaboration service used for personal cloud access, media
+        management, and shared file availability.
       </p>
 
       <button
@@ -25,40 +25,41 @@
         class="deployment-card-button btn-glow-hover"
         type="button"
       >
-        Open Access Panel
+        Open Service
       </button>
     </article>
 
-    <article class="deployment-card deployment-card-interactive reveal-item" style="--reveal-order: 2;">
+    <article class="deployment-card deployment-card-interactive">
       <header class="deployment-card-header">
         <span class="deployment-card-icon-box" aria-hidden="true">
           <span class="material-symbols-outlined deployment-card-symbol">lock</span>
         </span>
-        <span class="deployment-card-badge deployment-card-badge-red">RESTRICTED</span>
+        <span class="deployment-card-badge deployment-card-badge-red">Private</span>
       </header>
 
       <h3 class="deployment-card-title">Vaultwarden</h3>
       <p class="deployment-card-text">
-        Hardened secrets management container. Behind zero-trust tunnel with mTLS authentication.
+        Self-hosted password manager deployed behind restricted access controls and secure routing
+        for private credential management.
       </p>
 
       <button class="deployment-card-button deployment-card-button-disabled" type="button" disabled>
-        Access Forbidden
+        Restricted Access
       </button>
     </article>
 
-    <article class="deployment-card deployment-card-interactive reveal-item" style="--reveal-order: 3;">
+    <article class="deployment-card deployment-card-interactive">
       <header class="deployment-card-header">
         <span class="deployment-card-icon-box" aria-hidden="true">
           <span class="material-symbols-outlined deployment-card-symbol">monitoring</span>
         </span>
-        <span class="deployment-card-badge deployment-card-badge-cyan">REALTIME</span>
+        <span class="deployment-card-badge deployment-card-badge-blue">Realtime</span>
       </header>
 
       <h3 class="deployment-card-title">Grafana</h3>
       <p class="deployment-card-text">
-        Full-stack telemetry dash visualization. Aggregating data from Prometheus and Node
-        Exporters.
+        Monitoring dashboard used to visualize infrastructure and container metrics collected from
+        the self-hosted monitoring stack.
       </p>
 
       <a
@@ -67,7 +68,31 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        Stream Metrics
+        View Dashboard
+      </a>
+    </article>
+
+    <article class="deployment-card deployment-card-interactive">
+      <header class="deployment-card-header">
+        <span class="deployment-card-icon-box" aria-hidden="true">
+          <span class="material-symbols-outlined deployment-card-symbol">monitor_heart</span>
+        </span>
+        <span class="deployment-card-badge deployment-card-badge-cyan">Monitoring</span>
+      </header>
+
+      <h3 class="deployment-card-title">Uptime Kuma</h3>
+      <p class="deployment-card-text">
+        Service monitoring dashboard used to track public and internal endpoint availability across
+        the homelab environment.
+      </p>
+
+      <a
+        class="deployment-card-button deployment-card-button-solid btn-glow-hover"
+        href="https://status.pratik-labs.xyz"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View Status
       </a>
     </article>
     </div>
@@ -188,31 +213,18 @@
     button.dataset.copyTimer = '';
   };
 
-  const fallbackCopyText = async (value) => {
-    const helper = document.createElement('textarea');
-    helper.value = value;
-    helper.setAttribute('readonly', 'true');
-    helper.style.position = 'absolute';
-    helper.style.left = '-9999px';
-    document.body.append(helper);
-    helper.select();
-    document.execCommand('copy');
-    helper.remove();
-  };
-
   const copyValue = async (button) => {
     const value = button.dataset.copyValue;
 
-    if (!value) {
+    if (!value || !navigator.clipboard?.writeText) {
+      resetCopyButton(button);
+      button.textContent = 'Copy manually';
+      button.dataset.copyTimer = String(window.setTimeout(() => resetCopyButton(button), 2200));
       return;
     }
 
     try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(value);
-      } else {
-        await fallbackCopyText(value);
-      }
+      await navigator.clipboard.writeText(value);
 
       resetCopyButton(button);
       button.textContent = 'Copied';

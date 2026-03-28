@@ -1,54 +1,110 @@
 ---
 import { siteConfig } from '../../config/site';
 
-const securityPerimeterItems = [
-  'Zero Trust Cloudflare Tunnels',
-  'Secure Outbound Tunnel',
-  'Hardened SSH (Key-based Authentication)',
+const infrastructureAccessItems = [
+  'Cloudflare Tunnel for public ingress',
+  'Nginx Proxy Manager for internal routing',
+  'SSH access secured with key-based authentication',
+  'Segmented Docker networking for service isolation',
 ];
 
-const networkTopologyItems = [
-  'Internal docker-cloudflared Bridge',
-  'Dedicated docker-proxy Application Mesh',
-  'Nginx Traffic Controller (Internal LB)',
+const operationsObservabilityItems = [
+  'Multi-service Docker Compose deployment',
+  'Monitoring with Prometheus and Grafana',
+  'Uptime monitoring with Uptime Kuma',
+  'Automation and sync workflows using Ansible',
 ];
 
-const stackGroups = [
+const privateCloudStackGroups = [
   {
-    label: 'ORCHESTRATE',
-    items: [
-      ['Docker Engine', 'Container runtime for isolated application execution.'],
-      ['Docker Compose', 'Multi-container orchestration and infrastructure-as-code deployment.'],
-      ['Portainer', 'Centralized GUI for container lifecycle and status management.'],
-    ],
+    label: 'Container Platform',
+    items: ['Docker Engine', 'Docker Compose', 'Portainer'],
   },
   {
-    label: 'NETWORK',
-    items: [
-      ['Nginx Proxy', 'Layer 7 traffic routing'],
-      ['Cloudflared', 'Zero-trust outbound tunnel for secure ingress without open ports.'],
-      ['Tailscale', 'Mesh VPN for encrypted, private administrative access.'],
-    ],
+    label: 'Ingress & Networking',
+    items: ['Nginx Proxy Manager', 'Cloudflared'],
   },
   {
-    label: 'OBSERVE',
-    items: [
-      ['Prometheus', 'Time-series metrics collection via service discovery.'],
-      ['Grafana', 'Visualizing real-time telemetry and infrastructure health.'],
-      ['Uptime Kuma', 'Automated heartbeat monitoring and incident alerting.'],
-    ],
+    label: 'Observability',
+    items: ['Prometheus', 'Grafana', 'Uptime Kuma'],
   },
   {
-    label: 'HARDWARE & OS',
-    items: [
-      ['Ubuntu Server', 'Bare-metal OS hosting the production container environment.'],
-      ['Arch Linux', 'Workstation environment for IaC development and GitOps.'],
-      ['Storage Architecture', 'Tiered data management for app logic and media workloads.'],
-    ],
+    label: 'Automation',
+    items: ['Ansible', 'GitHub Actions'],
   },
   {
-    label: 'AUTOMATE',
-    items: [['GitHub Actions', 'Automated CI/CD pipelines for infrastructure deployment.']],
+    label: 'Infrastructure',
+    items: ['Ubuntu Server', 'Storage Architecture'],
+  },
+  {
+    label: 'Administrative Access',
+    items: ['Tailscale'],
+  },
+];
+
+const malaiDeuCloudDeliveryItems = [
+  'AWS EC2 application hosting',
+  'Amazon S3 file storage',
+  'IAM role-based access',
+  'Cloudflare domain and HTTPS',
+];
+
+const malaiDeuDeploymentFlowItems = [
+  'Dockerized application runtime',
+  'GitHub Actions CI pipeline',
+  'GHCR image publishing',
+  'SSH-based deployment to EC2',
+];
+
+const malaiDeuStackGroups = [
+  {
+    label: 'Application Stack',
+    items: ['Node.js', 'Express.js', 'EJS'],
+  },
+  {
+    label: 'File & Cloud',
+    items: ['Multer', 'AWS SDK v3', 'Amazon S3', 'IAM Role', 'EC2'],
+  },
+  {
+    label: 'Delivery',
+    items: ['Docker', 'GitHub Actions', 'GHCR'],
+  },
+  {
+    label: 'Network & Access',
+    items: ['Cloudflare', 'Custom Domain', 'HTTPS'],
+  },
+];
+
+const portfolioRuntimeItems = [
+  'Astro-based portfolio application',
+  'Node.js runtime for SSR features',
+  'Contact form integration',
+  'Runtime environment variable injection',
+];
+
+const portfolioDeliveryWorkflowItems = [
+  'Multi-stage Docker build',
+  'GitHub Actions verification pipeline',
+  'GHCR image publishing',
+  'Cron + Bash pull-based updates',
+];
+
+const portfolioStackGroups = [
+  {
+    label: 'Frontend',
+    items: ['Astro', 'TypeScript', 'Tailwind CSS'],
+  },
+  {
+    label: 'Runtime',
+    items: ['Node.js', 'SSR', 'Nodemailer'],
+  },
+  {
+    label: 'Delivery',
+    items: ['Docker', 'GitHub Actions', 'GHCR'],
+  },
+  {
+    label: 'Operations',
+    items: ['Docker Compose', 'Bash Script', 'Cron'],
   },
 ];
 ---
@@ -58,12 +114,6 @@ const stackGroups = [
     <header class="projects-header reveal-section">
       <div class="projects-heading-group reveal-item" style="--reveal-order: 0;">
         <h2 class="projects-title">Projects</h2>
-      </div>
-
-      <div class="projects-summary reveal-item" style="--reveal-order: 1;">
-        <p>
-          Detailed technical breakdown of architected solutions and operational deployments.
-        </p>
       </div>
     </header>
 
@@ -100,17 +150,18 @@ const stackGroups = [
       <div class="project-feature-layout">
         <div class="project-feature-details">
           <p class="project-feature-description reveal-item" style="--reveal-order: 3;">
-            Engineered a production-ready lab environment focused on
-            <strong> High Availability </strong> and <strong> Security Hardening </strong>. This
-            architecture serves as a scalable template for microservices-based business deployments.
+            Designed and deployed a self-hosted private cloud environment focused on secure service
+            exposure, reverse proxy routing, monitoring, and deployment automation. The setup uses
+            Cloudflare Tunnel, Nginx Proxy Manager, Docker, and Ansible to provide a modular
+            foundation for self-hosted applications.
           </p>
 
           <div class="project-pillars">
             <article class="project-pillar glass-effect reveal-item" style="--reveal-order: 4;">
-              <h4 class="project-pillar-title">Security Perimeter</h4>
+              <h4 class="project-pillar-title">Infrastructure &amp; Access</h4>
               <ul class="project-pillar-list">
                 {
-                  securityPerimeterItems.map((item) => (
+                  infrastructureAccessItems.map((item) => (
                     <li class="project-pillar-item">
                       <span class="project-pillar-arrow" aria-hidden="true">
                         →
@@ -123,10 +174,10 @@ const stackGroups = [
             </article>
 
             <article class="project-pillar glass-effect reveal-item" style="--reveal-order: 5;">
-              <h4 class="project-pillar-title">Network Topology</h4>
+              <h4 class="project-pillar-title">Operations &amp; Observability</h4>
               <ul class="project-pillar-list">
                 {
-                  networkTopologyItems.map((item) => (
+                  operationsObservabilityItems.map((item) => (
                     <li class="project-pillar-item">
                       <span class="project-pillar-arrow" aria-hidden="true">
                         →
@@ -162,7 +213,7 @@ const stackGroups = [
                 x="0"
                 y="22"
                 fill="var(--diagram-muted)"
-                font-family="JetBrains Mono"
+                font-family="Inter"
                 font-size="8"
                 text-anchor="middle"
                 dominant-baseline="middle"
@@ -179,13 +230,13 @@ const stackGroups = [
               ></path>
             </g>
 
-            <path id="project-flow-edge" class="project-network-line project-network-flow" d="M300,30 L300,67" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="project-flow-edge" class="project-network-line project-network-flow" d="M300,42 L300,67" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
 
             <g transform="translate(300, 80)">
               <rect class="project-network-node project-network-node-edge" fill="var(--diagram-node-fill)" height="26" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="110" x="-55" y="-13"></rect>
               <text
                 fill="var(--diagram-accent)"
-                font-family="JetBrains Mono"
+                font-family="Inter"
                 font-size="9"
                 text-anchor="middle"
                 dominant-baseline="middle"
@@ -203,8 +254,8 @@ const stackGroups = [
               stroke-dasharray="4"
               stroke-width="1.5"
             ></path>
-            <text x="350" y="125" fill="var(--diagram-accent)" font-family="JetBrains Mono" font-size="7" opacity="0.6" text-anchor="middle">
-              Zero Trust Tunnel
+            <text x="350" y="125" fill="var(--diagram-accent)" font-family="Inter" font-size="7" opacity="0.6" text-anchor="middle">
+              Cloudflare Tunnel
             </text>
 
             <rect
@@ -226,7 +277,7 @@ const stackGroups = [
               <circle cx="7" cy="20.5" r="1" fill="var(--diagram-accent)"></circle>
               <path d="M10 27 H14" stroke="var(--diagram-accent)" stroke-linecap="round" stroke-width="1"></path>
             </g>
-            <text x="50" y="180" fill="var(--diagram-boundary-strong)" font-family="JetBrains Mono" font-size="9" font-weight="bold">
+            <text x="50" y="180" fill="var(--diagram-boundary-strong)" font-family="Inter" font-size="9" font-weight="bold">
               Server
             </text>
             <rect
@@ -242,7 +293,7 @@ const stackGroups = [
               stroke-width="1"
             ></rect>
             <image href="/icons/docker.svg" x="66" y="184" width="22" height="22"></image>
-            <text x="92" y="197" fill="var(--diagram-boundary-strong)" font-family="JetBrains Mono" font-size="8" font-weight="bold" dominant-baseline="middle">
+            <text x="92" y="197" fill="var(--diagram-boundary-strong)" font-family="Inter" font-size="8" font-weight="bold" dominant-baseline="middle">
               Docker
             </text>
             <rect
@@ -257,7 +308,7 @@ const stackGroups = [
               stroke-dasharray="4 4"
               stroke-width="1"
             ></rect>
-            <text x="182" y="210" fill="var(--diagram-zone-text)" font-family="JetBrains Mono" font-size="8" font-weight="bold">
+            <text x="182" y="210" fill="var(--diagram-zone-text)" font-family="Inter" font-size="8" font-weight="bold">
               Ingress DMZ
             </text>
             <g transform="translate(300, 220)">
@@ -265,7 +316,7 @@ const stackGroups = [
               <text
                 y="32"
                 fill="var(--diagram-text)"
-                font-family="JetBrains Mono"
+                font-family="Inter"
                 font-size="8"
                 text-anchor="middle"
                 dominant-baseline="middle"
@@ -275,32 +326,33 @@ const stackGroups = [
               <image href="/icons/cloudflare.svg" x="-9" y="-9" width="18" height="18"></image>
             </g>
 
-            <path id="project-flow-bridge" class="project-network-line project-network-flow" d="M300,242 L300,280" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
-            <text x="240" y="265" fill="var(--diagram-muted)" font-family="JetBrains Mono" font-size="7" text-anchor="middle">
+            <path id="project-flow-bridge" class="project-network-line project-network-flow" d="M300,242 L300,285" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <text x="240" y="265" fill="var(--diagram-muted)" font-family="Inter" font-size="7" text-anchor="middle">
               docker-cloudflared bridge
             </text>
 
-            <a class="project-network-link project-network-link-core" href="https://proxy.pratik-labs.xyz" target="_blank" rel="noopener noreferrer">
+            <a class="project-network-link" href="https://proxy.pratik-labs.xyz" target="_blank" rel="noopener noreferrer">
               <g transform="translate(300, 300)">
-                <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="110" x="-55" y="-15"></rect>
+                <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="170" x="-85" y="-15"></rect>
                 <text
                   fill="var(--diagram-accent)"
-                  font-family="JetBrains Mono"
-                  font-size="9"
+                  font-family="Inter"
+                  font-size="8"
                   text-anchor="middle"
                   dominant-baseline="middle"
                 >
-                  Nginx
+                  Nginx Proxy Manager
                 </text>
               </g>
             </a>
 
-            <path id="project-flow-vaultwarden" class="project-network-line project-network-flow" d="M300,315 L120,380" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
-            <path id="project-flow-nextcloud" class="project-network-line project-network-flow" d="M300,315 L240,380" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
-            <path id="project-flow-portainer" class="project-network-line project-network-flow" d="M300,315 L360,380" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
-            <path id="project-flow-grafana" class="project-network-line project-network-flow" d="M300,315 L480,380" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
-            <path id="project-flow-kuma" class="project-network-line project-network-flow" d="M300,315 L300,430" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
-            <text x="300" y="350" fill="var(--diagram-muted)" font-family="JetBrains Mono" font-size="7" text-anchor="middle">
+            <path id="project-flow-vaultwarden" class="project-network-line project-network-flow" d="M300,315 L120,388" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="project-flow-nextcloud" class="project-network-line project-network-flow" d="M300,315 L240,388" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="project-flow-portainer" class="project-network-line project-network-flow" d="M300,315 L360,388" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="project-flow-grafana" class="project-network-line project-network-flow" d="M300,315 L480,388" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="project-flow-portfolio" class="project-network-line project-network-flow" d="M300,315 L300,422 L180,422 L180,436" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="project-flow-kuma" class="project-network-line project-network-flow" d="M300,315 L300,422 L420,422 L420,436" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <text x="300" y="350" fill="var(--diagram-muted)" font-family="Inter" font-size="7" text-anchor="middle">
               docker-proxy network
             </text>
 
@@ -309,7 +361,7 @@ const stackGroups = [
                 <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="85" x="-42" y="-12"></rect>
                 <text
                   fill="var(--diagram-text)"
-                  font-family="JetBrains Mono"
+                  font-family="Inter"
                   font-size="8"
                   text-anchor="middle"
                   dominant-baseline="middle"
@@ -324,7 +376,7 @@ const stackGroups = [
                 <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="85" x="-42" y="-12"></rect>
                 <text
                   fill="var(--diagram-text)"
-                  font-family="JetBrains Mono"
+                  font-family="Inter"
                   font-size="8"
                   text-anchor="middle"
                   dominant-baseline="middle"
@@ -339,7 +391,7 @@ const stackGroups = [
                 <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="85" x="-42" y="-12"></rect>
                 <text
                   fill="var(--diagram-text)"
-                  font-family="JetBrains Mono"
+                  font-family="Inter"
                   font-size="8"
                   text-anchor="middle"
                   dominant-baseline="middle"
@@ -354,7 +406,7 @@ const stackGroups = [
                 <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="85" x="-42" y="-12"></rect>
                 <text
                   fill="var(--diagram-text)"
-                  font-family="JetBrains Mono"
+                  font-family="Inter"
                   font-size="8"
                   text-anchor="middle"
                   dominant-baseline="middle"
@@ -364,12 +416,27 @@ const stackGroups = [
               </g>
             </a>
 
+            <a class="project-network-link" href="https://web.pratik-labs.xyz" target="_blank" rel="noopener noreferrer">
+              <g transform="translate(180, 448)">
+                <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="78" x="-39" y="-12"></rect>
+                <text
+                  fill="var(--diagram-text)"
+                  font-family="Inter"
+                  font-size="8"
+                  text-anchor="middle"
+                  dominant-baseline="middle"
+                >
+                  Portfolio
+                </text>
+              </g>
+            </a>
+
             <a class="project-network-link" href="https://status.pratik-labs.xyz" target="_blank" rel="noopener noreferrer">
-              <g transform="translate(300, 448)">
+              <g transform="translate(420, 448)">
                 <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="95" x="-47" y="-12"></rect>
                 <text
                   fill="var(--diagram-text)"
-                  font-family="JetBrains Mono"
+                  font-family="Inter"
                   font-size="8"
                   text-anchor="middle"
                   dominant-baseline="middle"
@@ -378,9 +445,6 @@ const stackGroups = [
                 </text>
               </g>
             </a>
-
-            <circle class="project-network-pulse" cx="300" cy="55" r="2" fill="var(--diagram-accent)"></circle>
-            <circle class="project-network-pulse" cx="300" cy="130" r="2" fill="var(--diagram-accent)" style="animation-delay: 0.5s"></circle>
 
             <circle class="project-network-packet" r="3" fill="var(--diagram-packet)" filter="url(#project-packet-glow)">
               <animateMotion dur="4.8s" repeatCount="indefinite" rotate="auto" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
@@ -418,6 +482,11 @@ const stackGroups = [
               </animateMotion>
             </circle>
             <circle class="project-network-packet" r="2.25" fill="var(--diagram-packet)" filter="url(#project-packet-glow)">
+              <animateMotion dur="4.9s" repeatCount="indefinite" rotate="auto" begin="0.55s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#project-flow-portfolio"></mpath>
+              </animateMotion>
+            </circle>
+            <circle class="project-network-packet" r="2.25" fill="var(--diagram-packet)" filter="url(#project-packet-glow)">
               <animateMotion dur="4.7s" repeatCount="indefinite" rotate="auto" begin="0.9s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
                 <mpath href="#project-flow-kuma"></mpath>
               </animateMotion>
@@ -428,38 +497,586 @@ const stackGroups = [
     </section>
 
     <section id="tech-stack" class="project-stack reveal-section">
-      <h4 class="project-stack-title reveal-item" style="--reveal-order: 0;">Project Dependencies &amp; Stack</h4>
+      <h4 class="project-stack-title reveal-item" style="--reveal-order: 0;">Infrastructure Stack</h4>
 
       <div class="project-stack-grid">
         {
-          stackGroups.map((group, groupIndex) => (
+          privateCloudStackGroups.map((group, groupIndex) => (
             <section class="project-stack-group reveal-item" style={`--reveal-order: ${groupIndex + 1};`}>
               <h5 class="project-stack-group-title">
                 <span class="project-stack-group-rule" aria-hidden="true"></span>
                 {group.label}
               </h5>
 
-              <div class="project-tech-list">
-                {group.items.map(([name, description], itemIndex) => (
-                  <article class="project-tech-item">
-                    <button
-                      class="project-tech-chip"
-                      type="button"
-                      aria-expanded="false"
-                      aria-controls={`project-tech-${groupIndex}-${itemIndex}`}
-                    >
-                      {name}
-                    </button>
-                    <div
-                      id={`project-tech-${groupIndex}-${itemIndex}`}
-                      class="project-tech-tooltip glass-effect"
-                      role="tooltip"
-                    >
-                      {description}
-                    </div>
-                  </article>
+              <ul class="project-stack-list">
+                {group.items.map((item) => (
+                  <li class="project-stack-item">
+                    <span class="project-stack-item-dot" aria-hidden="true"></span>
+                    <span>{item}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="malaideu" class="project-feature reveal-section border-t border-cyber-border/20">
+      <div class="project-feature-heading">
+        <div class="project-feature-heading-row">
+          <h3 class="project-feature-title reveal-item" style="--reveal-order: 0;">
+            MalaiDeu - AWS File Upload &amp; Storage System
+          </h3>
+          <div class="project-feature-link-group">
+            <a
+              class="project-feature-link btn-glow-hover reveal-item"
+              href={siteConfig.malaiDeuProjectUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style="--reveal-order: 1;"
+            >
+              <img
+                src="/icons/github.svg"
+                alt=""
+                aria-hidden="true"
+                class="project-feature-link-icon"
+                loading="lazy"
+              />
+              <span>View on GitHub</span>
+              <span class="material-symbols-outlined project-feature-link-arrow" aria-hidden="true">
+                north_east
+              </span>
+            </a>
+
+            <a
+              class="project-feature-link btn-glow-hover reveal-item"
+              href={siteConfig.malaiDeuLiveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style="--reveal-order: 2;"
+            >
+              <span>Live Site</span>
+              <span class="material-symbols-outlined project-feature-link-arrow" aria-hidden="true">
+                north_east
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="project-feature-rule reveal-item" style="--reveal-order: 3;" aria-hidden="true">
+        </div>
+      </div>
+
+      <div class="project-feature-layout">
+        <div class="project-feature-details">
+          <p class="project-feature-description reveal-item" style="--reveal-order: 4;">
+            Deployed a cloud-based file upload system on AWS using Docker, EC2, S3, and IAM, with
+            CI/CD automation through GitHub Actions and GHCR. The project focuses on secure file
+            delivery, containerized deployment, image-based updates, and domain/HTTPS integration
+            through Cloudflare.
+          </p>
+
+          <div class="project-pillars">
+            <article class="project-pillar glass-effect reveal-item" style="--reveal-order: 5;">
+              <h4 class="project-pillar-title">Cloud Delivery</h4>
+              <ul class="project-pillar-list">
+                {
+                  malaiDeuCloudDeliveryItems.map((item) => (
+                    <li class="project-pillar-item">
+                      <span class="project-pillar-arrow" aria-hidden="true">
+                        →
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </article>
+
+            <article class="project-pillar glass-effect reveal-item" style="--reveal-order: 6;">
+              <h4 class="project-pillar-title">Deployment Flow</h4>
+              <ul class="project-pillar-list">
+                {
+                  malaiDeuDeploymentFlowItems.map((item) => (
+                    <li class="project-pillar-item">
+                      <span class="project-pillar-arrow" aria-hidden="true">
+                        →
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <div class="project-network-panel glass-effect reveal-item" style="--reveal-order: 7;">
+          <div class="project-network-label">
+            <div class="project-network-indicator" aria-hidden="true"></div>
+            <span>AWS File Upload Flow</span>
+          </div>
+
+          <svg class="project-network-visual" viewBox="0 0 600 550" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <filter id="malaideu-packet-glow" x="-200%" y="-200%" width="400%" height="400%">
+                <feGaussianBlur stdDeviation="2" result="blur"></feGaussianBlur>
+                <feMerge>
+                  <feMergeNode in="blur"></feMergeNode>
+                  <feMergeNode in="SourceGraphic"></feMergeNode>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <g transform="translate(300, 30)">
+              <circle fill="transparent" r="12" stroke="var(--diagram-muted)" stroke-dasharray="2" stroke-width="1"></circle>
+              <text
+                x="0"
+                y="22"
+                fill="var(--diagram-muted)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                User
+              </text>
+              <circle cx="0" cy="-3.5" r="3" fill="none" stroke="var(--diagram-text)" stroke-width="1"></circle>
+              <path
+                d="M-5,5.5 C-5,2.5 5,2.5 5,5.5"
+                fill="none"
+                stroke="var(--diagram-text)"
+                stroke-linecap="round"
+                stroke-width="1"
+              ></path>
+            </g>
+
+            <path id="malaideu-flow-cloudflare" class="project-network-line project-network-flow" d="M300,42 L300,79" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+
+            <g transform="translate(300, 92)">
+              <rect class="project-network-node project-network-node-edge" fill="var(--diagram-node-fill)" height="26" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="104" x="-52" y="-13"></rect>
+              <text
+                fill="var(--diagram-accent)"
+                font-family="Inter"
+                font-size="9"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Cloudflare
+              </text>
+            </g>
+
+            <path id="malaideu-flow-ec2" class="project-network-line project-network-flow" d="M300,105 L300,185" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+
+            <rect
+              class="project-network-boundary"
+              x="145"
+              y="145"
+              width="310"
+              height="335"
+              rx="12"
+              fill="var(--diagram-boundary-fill)"
+              stroke="var(--diagram-boundary-stroke)"
+              stroke-width="1"
+            ></rect>
+            <g transform="translate(300, 200)">
+              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="140" x="-70" y="-15"></rect>
+              <text
+                fill="var(--diagram-accent)"
+                font-family="Inter"
+                font-size="9"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                EC2 Instance
+              </text>
+            </g>
+
+            <path id="malaideu-flow-container" class="project-network-line project-network-flow" d="M300,215 L300,265" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+
+            <g transform="translate(300, 280)">
+              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="180" x="-90" y="-15"></rect>
+              <text
+                fill="var(--diagram-accent)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Docker Container
+              </text>
+            </g>
+
+            <path id="malaideu-flow-sdk" class="project-network-line project-network-flow" d="M300,295 L300,346" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+
+            <g transform="translate(300, 360)">
+              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="28" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="120" x="-60" y="-14"></rect>
+              <text
+                fill="var(--diagram-accent)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                AWS SDK
+              </text>
+            </g>
+
+            <path id="malaideu-flow-s3" class="project-network-line project-network-flow" d="M300,374 L300,417" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+
+            <g transform="translate(300, 432)">
+              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="110" x="-55" y="-15"></rect>
+              <text
+                fill="var(--diagram-accent)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                S3 Bucket
+              </text>
+            </g>
+
+            <circle class="project-network-packet" r="3" fill="var(--diagram-packet)" filter="url(#malaideu-packet-glow)">
+              <animateMotion dur="4.8s" repeatCount="indefinite" rotate="auto" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#malaideu-flow-cloudflare"></mpath>
+              </animateMotion>
+            </circle>
+            <circle class="project-network-packet" r="3" fill="var(--diagram-packet)" filter="url(#malaideu-packet-glow)">
+              <animateMotion dur="5.1s" repeatCount="indefinite" rotate="auto" begin="0.35s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#malaideu-flow-ec2"></mpath>
+              </animateMotion>
+            </circle>
+            <circle class="project-network-packet" r="2.5" fill="var(--diagram-packet)" filter="url(#malaideu-packet-glow)">
+              <animateMotion dur="4.5s" repeatCount="indefinite" rotate="auto" begin="0.6s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#malaideu-flow-container"></mpath>
+              </animateMotion>
+            </circle>
+            <circle class="project-network-packet" r="2.5" fill="var(--diagram-packet)" filter="url(#malaideu-packet-glow)">
+              <animateMotion dur="4.2s" repeatCount="indefinite" rotate="auto" begin="0.95s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#malaideu-flow-sdk"></mpath>
+              </animateMotion>
+            </circle>
+            <circle class="project-network-packet" r="2.5" fill="var(--diagram-packet)" filter="url(#malaideu-packet-glow)">
+              <animateMotion dur="4.9s" repeatCount="indefinite" rotate="auto" begin="1.2s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#malaideu-flow-s3"></mpath>
+              </animateMotion>
+            </circle>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="malaideu-stack" class="project-stack reveal-section">
+      <h4 class="project-stack-title reveal-item" style="--reveal-order: 0;">Stack &amp; Dependencies</h4>
+
+      <div class="project-stack-grid">
+        {
+          malaiDeuStackGroups.map((group, groupIndex) => (
+            <section class="project-stack-group reveal-item" style={`--reveal-order: ${groupIndex + 1};`}>
+              <h5 class="project-stack-group-title">
+                <span class="project-stack-group-rule" aria-hidden="true"></span>
+                {group.label}
+              </h5>
+
+              <ul class="project-stack-list">
+                {group.items.map((item) => (
+                  <li class="project-stack-item">
+                    <span class="project-stack-item-dot" aria-hidden="true"></span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="portfolio-application" class="project-feature reveal-section border-t border-cyber-border/20">
+      <div class="project-feature-heading">
+        <div class="project-feature-heading-row">
+          <h3 class="project-feature-title reveal-item" style="--reveal-order: 0;">
+            Portfolio Application
+          </h3>
+          <div class="project-feature-link-group">
+            <a
+              class="project-feature-link btn-glow-hover reveal-item"
+              href={siteConfig.portfolioAppProjectUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style="--reveal-order: 1;"
+            >
+              <img
+                src="/icons/github.svg"
+                alt=""
+                aria-hidden="true"
+                class="project-feature-link-icon"
+                loading="lazy"
+              />
+              <span>View on GitHub</span>
+              <span class="material-symbols-outlined project-feature-link-arrow" aria-hidden="true">
+                north_east
+              </span>
+            </a>
+
+            <a
+              class="project-feature-link btn-glow-hover reveal-item"
+              href={siteConfig.portfolioAppLiveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style="--reveal-order: 2;"
+            >
+              <span>Live Site</span>
+              <span class="material-symbols-outlined project-feature-link-arrow" aria-hidden="true">
+                north_east
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="project-feature-rule reveal-item" style="--reveal-order: 3;" aria-hidden="true">
+        </div>
+      </div>
+
+      <div class="project-feature-layout">
+        <div class="project-feature-details">
+          <p class="project-feature-description reveal-item" style="--reveal-order: 4;">
+            A containerized portfolio website deployed on a self-hosted server using Docker and a
+            pull-based CI/CD workflow. The project focuses on image packaging, GitHub Actions
+            automation, GHCR publishing, and scheduled server-side updates through Bash and cron.
+          </p>
+
+          <div class="project-pillars">
+            <article class="project-pillar glass-effect reveal-item" style="--reveal-order: 5;">
+              <h4 class="project-pillar-title">Application Runtime</h4>
+              <ul class="project-pillar-list">
+                {
+                  portfolioRuntimeItems.map((item) => (
+                    <li class="project-pillar-item">
+                      <span class="project-pillar-arrow" aria-hidden="true">
+                        →
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </article>
+
+            <article class="project-pillar glass-effect reveal-item" style="--reveal-order: 6;">
+              <h4 class="project-pillar-title">Delivery Workflow</h4>
+              <ul class="project-pillar-list">
+                {
+                  portfolioDeliveryWorkflowItems.map((item) => (
+                    <li class="project-pillar-item">
+                      <span class="project-pillar-arrow" aria-hidden="true">
+                        →
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <div class="project-network-panel glass-effect reveal-item" style="--reveal-order: 7;">
+          <div class="project-network-label">
+            <div class="project-network-indicator" aria-hidden="true"></div>
+            <span>Pull-Based Deployment Workflow</span>
+          </div>
+
+          <svg class="project-network-visual" viewBox="0 0 600 550" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <filter id="portfolio-packet-glow" x="-200%" y="-200%" width="400%" height="400%">
+                <feGaussianBlur stdDeviation="2" result="blur"></feGaussianBlur>
+                <feMerge>
+                  <feMergeNode in="blur"></feMergeNode>
+                  <feMergeNode in="SourceGraphic"></feMergeNode>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <rect
+              class="project-network-boundary"
+              x="145"
+              y="218"
+              width="310"
+              height="276"
+              rx="12"
+              fill="var(--diagram-boundary-fill)"
+              stroke="var(--diagram-boundary-stroke)"
+              stroke-width="1"
+            ></rect>
+
+            <g transform="translate(300, 30)">
+              <circle fill="transparent" r="12" stroke="var(--diagram-muted)" stroke-dasharray="2" stroke-width="1"></circle>
+              <text
+                x="0"
+                y="22"
+                fill="var(--diagram-muted)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Git Push
+              </text>
+              <circle cx="0" cy="-3.5" r="3" fill="none" stroke="var(--diagram-text)" stroke-width="1"></circle>
+              <path
+                d="M-5,5.5 C-5,2.5 5,2.5 5,5.5"
+                fill="none"
+                stroke="var(--diagram-text)"
+                stroke-linecap="round"
+                stroke-width="1"
+              ></path>
+            </g>
+
+            <path id="portfolio-flow-actions" class="project-network-line project-network-flow" d="M300,42 L300,79" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+
+            <g transform="translate(300, 92)">
+              <rect class="project-network-node project-network-node-edge" fill="var(--diagram-node-fill)" height="26" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="130" x="-65" y="-13"></rect>
+              <text
+                fill="var(--diagram-accent)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                GitHub Actions
+              </text>
+            </g>
+
+            <path id="portfolio-flow-ghcr" class="project-network-line project-network-flow" d="M300,105 L300,156" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+
+            <g transform="translate(300, 170)">
+              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="28" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="90" x="-45" y="-14"></rect>
+              <text
+                fill="var(--diagram-accent)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                GHCR
+              </text>
+            </g>
+
+            <path id="portfolio-flow-server" class="project-network-line project-network-flow" d="M300,184 L300,235" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <g transform="translate(300, 250)">
+              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="150" x="-75" y="-15"></rect>
+              <text
+                fill="var(--diagram-accent)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Cron Job on Server
+              </text>
+            </g>
+
+            <path id="portfolio-flow-bash" class="project-network-line project-network-flow" d="M300,265 L300,311" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+
+            <g transform="translate(300, 326)">
+              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="150" x="-75" y="-15"></rect>
+              <text
+                fill="var(--diagram-accent)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Bash Update Script
+              </text>
+            </g>
+
+            <path id="portfolio-flow-compose" class="project-network-line project-network-flow" d="M300,341 L300,387" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+
+            <g transform="translate(300, 402)">
+              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="140" x="-70" y="-15"></rect>
+              <text
+                fill="var(--diagram-accent)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Docker Compose
+              </text>
+            </g>
+
+            <path id="portfolio-flow-container" class="project-network-line project-network-flow" d="M300,417 L300,449" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+
+            <g transform="translate(300, 464)">
+              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="150" x="-75" y="-15"></rect>
+              <text
+                fill="var(--diagram-accent)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Portfolio Container
+              </text>
+            </g>
+
+            <circle class="project-network-packet" r="3" fill="var(--diagram-packet)" filter="url(#portfolio-packet-glow)">
+              <animateMotion dur="4.8s" repeatCount="indefinite" rotate="auto" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#portfolio-flow-actions"></mpath>
+              </animateMotion>
+            </circle>
+            <circle class="project-network-packet" r="3" fill="var(--diagram-packet)" filter="url(#portfolio-packet-glow)">
+              <animateMotion dur="4.9s" repeatCount="indefinite" rotate="auto" begin="0.25s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#portfolio-flow-ghcr"></mpath>
+              </animateMotion>
+            </circle>
+            <circle class="project-network-packet" r="2.75" fill="var(--diagram-packet)" filter="url(#portfolio-packet-glow)">
+              <animateMotion dur="4.6s" repeatCount="indefinite" rotate="auto" begin="0.55s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#portfolio-flow-server"></mpath>
+              </animateMotion>
+            </circle>
+            <circle class="project-network-packet" r="2.5" fill="var(--diagram-packet)" filter="url(#portfolio-packet-glow)">
+              <animateMotion dur="4.3s" repeatCount="indefinite" rotate="auto" begin="0.85s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#portfolio-flow-bash"></mpath>
+              </animateMotion>
+            </circle>
+            <circle class="project-network-packet" r="2.5" fill="var(--diagram-packet)" filter="url(#portfolio-packet-glow)">
+              <animateMotion dur="4.5s" repeatCount="indefinite" rotate="auto" begin="1.1s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#portfolio-flow-compose"></mpath>
+              </animateMotion>
+            </circle>
+            <circle class="project-network-packet" r="2.5" fill="var(--diagram-packet)" filter="url(#portfolio-packet-glow)">
+              <animateMotion dur="4.2s" repeatCount="indefinite" rotate="auto" begin="1.35s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#portfolio-flow-container"></mpath>
+              </animateMotion>
+            </circle>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio-application-stack" class="project-stack reveal-section">
+      <h4 class="project-stack-title reveal-item" style="--reveal-order: 0;">Stack &amp; Dependencies</h4>
+
+      <div class="project-stack-grid">
+        {
+          portfolioStackGroups.map((group, groupIndex) => (
+            <section class="project-stack-group reveal-item" style={`--reveal-order: ${groupIndex + 1};`}>
+              <h5 class="project-stack-group-title">
+                <span class="project-stack-group-rule" aria-hidden="true"></span>
+                {group.label}
+              </h5>
+
+              <ul class="project-stack-list">
+                {group.items.map((item) => (
+                  <li class="project-stack-item">
+                    <span class="project-stack-item-dot" aria-hidden="true"></span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </section>
           ))
         }
@@ -467,77 +1084,3 @@ const stackGroups = [
     </section>
   </div>
 </section>
-
-<script is:inline>
-  const techItems = Array.from(document.querySelectorAll('.project-tech-item'));
-
-  const closeTechItem = (item) => {
-    const button = item.querySelector('.project-tech-chip');
-
-    item.classList.remove('is-open');
-
-    if (button instanceof HTMLButtonElement) {
-      button.setAttribute('aria-expanded', 'false');
-    }
-  };
-
-  const openTechItem = (item) => {
-    techItems.forEach((currentItem) => {
-      if (currentItem !== item) {
-        closeTechItem(currentItem);
-      }
-    });
-
-    const button = item.querySelector('.project-tech-chip');
-    item.classList.add('is-open');
-
-    if (button instanceof HTMLButtonElement) {
-      button.setAttribute('aria-expanded', 'true');
-    }
-  };
-
-  techItems.forEach((item) => {
-    const button = item.querySelector('.project-tech-chip');
-
-    if (!(button instanceof HTMLButtonElement)) {
-      return;
-    }
-
-    button.addEventListener('click', () => {
-      const isOpen = item.classList.contains('is-open');
-
-      if (isOpen) {
-        closeTechItem(item);
-        return;
-      }
-
-      openTechItem(item);
-    });
-
-    button.addEventListener('blur', () => {
-      window.setTimeout(() => {
-        if (!item.contains(document.activeElement)) {
-          closeTechItem(item);
-        }
-      }, 0);
-    });
-  });
-
-  document.addEventListener('click', (event) => {
-    if (!(event.target instanceof Node)) {
-      return;
-    }
-
-    techItems.forEach((item) => {
-      if (!item.contains(event.target)) {
-        closeTechItem(item);
-      }
-    });
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      techItems.forEach((item) => closeTechItem(item));
-    }
-  });
-</script>

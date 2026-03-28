@@ -1,0 +1,22 @@
+---
+const toolingRows = [
+  ['Docker', 'Docker Compose', 'Linux', 'Git', 'GitHub Actions', 'CI/CD'],
+  ['Ansible', 'AWS (EC2, S3, IAM)', 'Cloudflare', 'Prometheus', 'Grafana'],
+  ['Nginx Proxy Manager'],
+];
+---
+
+<section class="tooling-section">
+  <div class="tooling-shell reveal-section">
+    <h2 class="tooling-title reveal-item" style="--reveal-order: 0;">Top Skills</h2>
+    {
+      toolingRows.map((row, rowIndex) => (
+        <ul class="tooling-row reveal-item" style={`--reveal-order: ${rowIndex + 1};`}>
+          {row.map((item) => (
+            <li class="tooling-pill">{item}</li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</section>

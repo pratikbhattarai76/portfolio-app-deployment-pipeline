@@ -83,7 +83,7 @@ const pageTitle = `${siteConfig.name} | ${siteConfig.title}`;
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
 			rel="stylesheet"
 		/>
 		<link
@@ -240,6 +240,19 @@ const pageTitle = `${siteConfig.name} | ${siteConfig.title}`;
 			);
 			let mobileNavOpen = false;
 			let revealObserver;
+			let revealBootstrapped = false;
+			let revealBootTimer = 0;
+			const setRevealDelay = (element, order = 0) => {
+				element.style.setProperty('--reveal-section-delay', `${Math.max(order, 0) * 120}ms`);
+			};
+			const revealSection = (element, order = 0) => {
+				if (!(element instanceof HTMLElement) || element.classList.contains('reveal-visible')) {
+					return;
+				}
+
+				setRevealDelay(element, order);
+				element.classList.add('reveal-visible');
+			};
 			const getNavbarOffset = () => (navbar instanceof HTMLElement ? navbar.offsetHeight + 24 : 88);
 			const getRevealStart = () => {
 				const compactViewport = compactViewportQuery?.matches ?? false;
@@ -268,12 +281,13 @@ const pageTitle = `${siteConfig.name} | ${siteConfig.title}`;
 
 			const syncRevealVisibility = () => {
 				if (reducedMotion || revealElements.length === 0) {
-					revealElements.forEach((element) => element.classList.add('reveal-visible'));
+					revealElements.forEach((element) => revealSection(element));
 					return;
 				}
 
 				const revealStart = getRevealStart();
 				const revealEnd = -window.innerHeight * 0.18;
+				const pendingVisibleElements = [];
 
 				revealElements.forEach((element) => {
 					if (element.classList.contains('reveal-visible')) {
@@ -284,9 +298,11 @@ const pageTitle = `${siteConfig.name} | ${siteConfig.title}`;
 					const isNearViewport = bounds.top <= revealStart && bounds.bottom >= revealEnd;
 
 					if (isNearViewport) {
-						element.classList.add('reveal-visible');
+						pendingVisibleElements.push(element);
 					}
 				});
+
+				pendingVisibleElements.forEach((element, index) => revealSection(element, index));
 			};
 			const observeRevealVisibility = () => {
 				if (reducedMotion || revealElements.length === 0) {
@@ -304,12 +320,21 @@ const pageTitle = `${siteConfig.name} | ${siteConfig.title}`;
 				const compactViewport = compactViewportQuery?.matches ?? false;
 				revealObserver = new IntersectionObserver(
 					(entries) => {
-						entries.forEach((entry) => {
-							if (!entry.isIntersecting || !(entry.target instanceof HTMLElement)) {
+						const intersectingEntries = entries
+							.filter(
+								(entry) =>
+									entry.isIntersecting &&
+									entry.target instanceof HTMLElement &&
+									!entry.target.classList.contains('reveal-visible')
+							)
+							.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+						intersectingEntries.forEach((entry, index) => {
+							if (!(entry.target instanceof HTMLElement)) {
 								return;
 							}
 
-							entry.target.classList.add('reveal-visible');
+							revealSection(entry.target, index);
 							revealObserver?.unobserve(entry.target);
 						});
 					},
@@ -458,13 +483,15 @@ const pageTitle = `${siteConfig.name} | ${siteConfig.title}`;
 				});
 			}
 
-			observeRevealVisibility();
-
 			if (sectionTargets.length > 0) {
 				syncActiveLinkFromScroll();
 			}
 
 			const syncShell = () => {
+				if (revealBootstrapped || reducedMotion || revealElements.length === 0) {
+					syncRevealVisibility();
+				}
+
 				updateProgress();
 				updateNavbarState();
 				syncActiveLinkFromScroll();
@@ -481,6 +508,28 @@ const pageTitle = `${siteConfig.name} | ${siteConfig.title}`;
 				});
 			};
 
+			const finalizeRevealSetup = () => {
+				if (revealBootstrapped) {
+					return;
+				}
+
+				revealBootstrapped = true;
+				window.clearTimeout(revealBootTimer);
+				syncRevealVisibility();
+				observeRevealVisibility();
+				requestShellSync();
+			};
+
+			if (revealElements.length > 0) {
+				root.dataset.revealReady = 'true';
+				window.requestAnimationFrame(() => {
+					window.requestAnimationFrame(finalizeRevealSetup);
+				});
+				revealBootTimer = window.setTimeout(finalizeRevealSetup, 220);
+			} else {
+				finalizeRevealSetup();
+			}
+
 			syncShell();
 			window.addEventListener('scroll', requestShellSync, { passive: true });
 			window.addEventListener('resize', () => {
@@ -488,7 +537,10 @@ const pageTitle = `${siteConfig.name} | ${siteConfig.title}`;
 					setMobileNavOpen(false);
 				}
 
-				observeRevealVisibility();
+				if (revealBootstrapped) {
+					observeRevealVisibility();
+				}
+
 				requestShellSync();
 			});
 		</script>

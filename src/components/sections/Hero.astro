@@ -5,20 +5,21 @@ import { siteConfig } from '../../config/site';
 <section id="hero" class="hero reveal-section">
   <div class="hero-image-wrap reveal-item" style="--reveal-order: 0;">
     <div class="hero-image-glow"></div>
-    <img
-      src="/images/profile.jpg"
-      alt="Pratik Bhattarai"
-      class="hero-image neon-glow"
-      loading="eager"
-    />
+    <div class="hero-image-frame neon-glow">
+      <img
+        src="/images/profile.jpg"
+        alt="Pratik Bhattarai"
+        class="hero-image"
+        loading="eager"
+      />
+    </div>
   </div>
 
   <h1 class="hero-title reveal-item" style="--reveal-order: 1;">{siteConfig.name}</h1>
   <h2 class="hero-subtitle reveal-item" style="--reveal-order: 2;">{siteConfig.title}</h2>
 
   <p class="hero-description reveal-item" style="--reveal-order: 3;">
-    Orchestrating bare-metal hardware into mission-critical cloud infrastructure. Specialized in
-    high-availability, self-hosted environments and zero-trust security.
+    {siteConfig.description}
   </p>
 
   <div class="hero-actions reveal-item" style="--reveal-order: 4;">

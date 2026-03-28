@@ -102,7 +102,7 @@ A Bash script implements pull-based deployment on the self-hosted server.
 ## ⚙️ Local Development Setup
 
 ```bash
-git clone https://github.com/pratikbhattarai76/portfolio-app.git
+git clone https://github.com/pratikbhattarai76/portfolio-app-deployment-pipeline.git
 cd portfolio-app
 npm install
 cp .env.example .env

@@ -1137,18 +1137,6 @@ const k8sStackGroups = [
               </filter>
             </defs>
 
-            <rect
-              class="project-network-boundary"
-              x="145"
-              y="218"
-              width="310"
-              height="276"
-              rx="12"
-              fill="var(--diagram-boundary-fill)"
-              stroke="var(--diagram-boundary-stroke)"
-              stroke-width="1"
-            ></rect>
-
             <g transform="translate(300, 30)">
               <circle fill="transparent" r="12" stroke="var(--diagram-muted)" stroke-dasharray="2" stroke-width="1"></circle>
               <text
@@ -1187,9 +1175,9 @@ const k8sStackGroups = [
               </text>
             </g>
 
-            <path id="portfolio-flow-ghcr" class="project-network-line project-network-flow" d="M300,105 L300,156" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="portfolio-flow-ghcr" class="project-network-line project-network-flow" d="M300,105 L440,156" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
 
-            <g transform="translate(300, 170)">
+            <g transform="translate(440, 170)">
               <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="28" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="90" x="-45" y="-14"></rect>
               <text
                 fill="var(--diagram-accent)"
@@ -1202,9 +1190,9 @@ const k8sStackGroups = [
               </text>
             </g>
 
-            <path id="portfolio-flow-manifest" class="project-network-line project-network-flow" d="M300,184 L300,235" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
-            <g transform="translate(300, 250)">
-              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="150" x="-75" y="-15"></rect>
+            <path id="portfolio-flow-platform" class="project-network-line project-network-flow" d="M300,105 L300,156" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <g transform="translate(300, 170)">
+              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="28" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="150" x="-75" y="-14"></rect>
               <text
                 fill="var(--diagram-accent)"
                 font-family="Inter"
@@ -1212,13 +1200,26 @@ const k8sStackGroups = [
                 text-anchor="middle"
                 dominant-baseline="middle"
               >
-                Manifest Update
+                Kubernetes Platform Repository
               </text>
             </g>
 
-            <path id="portfolio-flow-argocd" class="project-network-line project-network-flow" d="M300,265 L300,311" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <g transform="translate(300, 205)">
+              <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="20" rx="3" stroke="var(--diagram-app-stroke)" stroke-width="1" width="170" x="-85" y="-10"></rect>
+              <text
+                fill="var(--diagram-text)"
+                font-family="Inter"
+                font-size="7.75"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Deployment Manifest Update
+              </text>
+            </g>
 
-            <g transform="translate(300, 326)">
+            <path id="portfolio-flow-argocd" class="project-network-line project-network-flow" d="M300,215 L300,255" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+
+            <g transform="translate(300, 270)">
               <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="150" x="-75" y="-15"></rect>
               <text
                 fill="var(--diagram-accent)"
@@ -1231,9 +1232,9 @@ const k8sStackGroups = [
               </text>
             </g>
 
-            <path id="portfolio-flow-k8s" class="project-network-line project-network-flow" d="M300,341 L300,387" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="portfolio-flow-k8s" class="project-network-line project-network-flow" d="M300,285 L300,320" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
 
-            <g transform="translate(300, 402)">
+            <g transform="translate(300, 335)">
               <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="140" x="-70" y="-15"></rect>
               <text
                 fill="var(--diagram-accent)"
@@ -1246,9 +1247,9 @@ const k8sStackGroups = [
               </text>
             </g>
 
-            <path id="portfolio-flow-pod" class="project-network-line project-network-flow" d="M300,417 L300,449" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="portfolio-flow-pod" class="project-network-line project-network-flow" d="M300,350 L300,385" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
 
-            <g transform="translate(300, 464)">
+            <g transform="translate(300, 400)">
               <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="150" x="-75" y="-15"></rect>
               <text
                 fill="var(--diagram-accent)"
@@ -1272,8 +1273,8 @@ const k8sStackGroups = [
               </animateMotion>
             </circle>
             <circle class="project-network-packet" r="2.75" fill="var(--diagram-packet)" filter="url(#portfolio-packet-glow)">
-              <animateMotion dur="4.6s" repeatCount="indefinite" rotate="auto" begin="0.55s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
-                <mpath href="#portfolio-flow-manifest"></mpath>
+              <animateMotion dur="4.7s" repeatCount="indefinite" rotate="auto" begin="0.4s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#portfolio-flow-platform"></mpath>
               </animateMotion>
             </circle>
             <circle class="project-network-packet" r="2.5" fill="var(--diagram-packet)" filter="url(#portfolio-packet-glow)">

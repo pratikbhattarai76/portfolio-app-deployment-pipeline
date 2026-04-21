@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import nodemailer from 'nodemailer';
+import type SMTPTransport from 'nodemailer/lib/smtp-transport';
 import { siteConfig } from '../../config/site';
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -51,16 +52,17 @@ const createTransport = (env: ReturnType<typeof getEnv>) => {
 
   const secure = env.SMTP_SECURE ? env.SMTP_SECURE === 'true' : port === 465;
 
-  return nodemailer.createTransport({
+  const transportOptions: SMTPTransport.Options = {
     host: env.SMTP_HOST,
     port,
     secure,
-    family: 4,
     auth: {
       user: env.SMTP_USER,
       pass: env.SMTP_PASS,
     },
-  });
+  };
+
+  return nodemailer.createTransport(transportOptions);
 };
 
 const escapeHtml = (value: string) =>

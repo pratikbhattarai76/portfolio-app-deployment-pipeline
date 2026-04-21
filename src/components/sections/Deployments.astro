@@ -1,3 +1,52 @@
+---
+import { siteConfig } from '../../config/site';
+
+const deploymentCards = [
+  {
+    name: 'Immich',
+    icon: 'photo_library',
+    badge: 'PHOTOS',
+    badgeClass: 'deployment-card-badge-green',
+    host: 'photos.pratik-labs.xyz',
+    description:
+      'Self-hosted photo management with GPU-accelerated machine learning for face detection and smart search.',
+    buttonLabel: 'Open Service',
+    href: siteConfig.immichUrl,
+  },
+  {
+    name: 'Argo CD',
+    icon: 'hub',
+    badge: 'GITOPS',
+    badgeClass: 'deployment-card-badge-red',
+    host: 'argocd.pratik-labs.xyz',
+    description:
+      'GitOps continuous delivery dashboard for synchronizing Kubernetes workloads from Git state.',
+    buttonLabel: 'View Dashboard',
+    href: siteConfig.argoCdUrl,
+  },
+  {
+    name: 'Grafana',
+    icon: 'monitoring',
+    badge: 'MONITORING',
+    badgeClass: 'deployment-card-badge-blue',
+    host: 'grafana.pratik-labs.xyz',
+    description: 'Metrics visualization dashboard connected to Prometheus for cluster and application monitoring.',
+    buttonLabel: 'View Dashboard',
+    href: siteConfig.grafanaUrl,
+  },
+  {
+    name: 'Uptime Kuma',
+    icon: 'monitor_heart',
+    badge: 'STATUS',
+    badgeClass: 'deployment-card-badge-cyan',
+    host: 'status.pratik-labs.xyz',
+    description: 'Service uptime monitoring dashboard tracking availability of public endpoints with push alerts.',
+    buttonLabel: 'View Status',
+    href: siteConfig.uptimeKumaUrl,
+  },
+] as const;
+---
+
 <section id="deployments" class="deployments-section">
   <div class="reveal-section">
     <header class="deployments-header reveal-item" style="--reveal-order: 0;">
@@ -6,312 +55,31 @@
     </header>
 
     <div class="deployments-grid reveal-item" style="--reveal-order: 1;">
-    <article class="deployment-card deployment-card-interactive">
-      <header class="deployment-card-header">
-        <span class="deployment-card-icon-box" aria-hidden="true">
-          <span class="material-symbols-outlined deployment-card-symbol">cloud_done</span>
-        </span>
-        <span class="deployment-card-badge deployment-card-badge-green">Public</span>
-      </header>
+      {
+        deploymentCards.map((card) => (
+          <article class="deployment-card deployment-card-interactive">
+            <header class="deployment-card-header">
+              <span class="deployment-card-icon-box" aria-hidden="true">
+                <span class="material-symbols-outlined deployment-card-symbol">{card.icon}</span>
+              </span>
+              <span class={`deployment-card-badge ${card.badgeClass}`}>{card.badge}</span>
+            </header>
 
-      <h3 class="deployment-card-title">Nextcloud</h3>
-      <p class="deployment-card-text">
-        Self-hosted file storage and collaboration service used for personal cloud access, media
-        management, and shared file availability.
-      </p>
+            <h3 class="deployment-card-title">{card.name}</h3>
+            <p class="deployment-card-host">{card.host}</p>
+            <p class="deployment-card-text">{card.description}</p>
 
-      <button
-        id="deployment-open-connection"
-        class="deployment-card-button btn-glow-hover"
-        type="button"
-      >
-        Open Service
-      </button>
-    </article>
-
-    <article class="deployment-card deployment-card-interactive">
-      <header class="deployment-card-header">
-        <span class="deployment-card-icon-box" aria-hidden="true">
-          <span class="material-symbols-outlined deployment-card-symbol">lock</span>
-        </span>
-        <span class="deployment-card-badge deployment-card-badge-red">Private</span>
-      </header>
-
-      <h3 class="deployment-card-title">Vaultwarden</h3>
-      <p class="deployment-card-text">
-        Self-hosted password manager deployed behind restricted access controls and secure routing
-        for private credential management.
-      </p>
-
-      <button class="deployment-card-button deployment-card-button-disabled" type="button" disabled>
-        Restricted Access
-      </button>
-    </article>
-
-    <article class="deployment-card deployment-card-interactive">
-      <header class="deployment-card-header">
-        <span class="deployment-card-icon-box" aria-hidden="true">
-          <span class="material-symbols-outlined deployment-card-symbol">monitoring</span>
-        </span>
-        <span class="deployment-card-badge deployment-card-badge-blue">Realtime</span>
-      </header>
-
-      <h3 class="deployment-card-title">Grafana</h3>
-      <p class="deployment-card-text">
-        Monitoring dashboard used to visualize infrastructure and container metrics collected from
-        the self-hosted monitoring stack.
-      </p>
-
-      <a
-        class="deployment-card-button deployment-card-button-solid btn-glow-hover"
-        href="https://monitor.pratik-labs.xyz"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        View Dashboard
-      </a>
-    </article>
-
-    <article class="deployment-card deployment-card-interactive">
-      <header class="deployment-card-header">
-        <span class="deployment-card-icon-box" aria-hidden="true">
-          <span class="material-symbols-outlined deployment-card-symbol">monitor_heart</span>
-        </span>
-        <span class="deployment-card-badge deployment-card-badge-cyan">Monitoring</span>
-      </header>
-
-      <h3 class="deployment-card-title">Uptime Kuma</h3>
-      <p class="deployment-card-text">
-        Service monitoring dashboard used to track public and internal endpoint availability across
-        the homelab environment.
-      </p>
-
-      <a
-        class="deployment-card-button deployment-card-button-solid btn-glow-hover"
-        href="https://status.pratik-labs.xyz"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        View Status
-      </a>
-    </article>
-    </div>
-  </div>
-
-  <div
-    id="deployment-connection-modal"
-    class="connection-modal hidden"
-    role="dialog"
-    aria-modal="true"
-    aria-hidden="true"
-    aria-labelledby="deployment-connection-title"
-  >
-    <div class="connection-modal-panel glass-effect" tabindex="-1">
-      <div class="connection-modal-topbar" aria-hidden="true"></div>
-
-      <div class="connection-modal-header">
-        <h3 id="deployment-connection-title" class="connection-modal-title">
-          <span class="material-symbols-outlined">terminal</span>
-          CONNECTION_PARAMETERS
-        </h3>
-
-        <button
-          id="deployment-close-connection"
-          class="connection-modal-close"
-          type="button"
-          aria-label="Close connection modal"
-        >
-          <span class="material-symbols-outlined">close</span>
-        </button>
-      </div>
-
-      <p class="connection-modal-intro">
-        Guest credentials are available for quick demo access. On phones, copy the values instead
-        of selecting the text manually.
-      </p>
-
-      <div class="connection-modal-details">
-        <div class="connection-modal-field">
-          <div class="connection-modal-field-meta">
-            <span class="connection-modal-label">Server Address</span>
-            <button
-              class="connection-modal-copy"
-              type="button"
-              data-copy-value="cloud.pratik-labs.xyz"
+            <a
+              class="deployment-card-button deployment-card-button-solid btn-glow-hover"
+              href={card.href}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Copy
-            </button>
-          </div>
-          <code class="connection-modal-value">cloud.pratik-labs.xyz</code>
-        </div>
-
-        <div class="connection-modal-field">
-          <div class="connection-modal-field-meta">
-            <span class="connection-modal-label">Access Identity</span>
-            <button class="connection-modal-copy" type="button" data-copy-value="Guest">
-              Copy
-            </button>
-          </div>
-          <code class="connection-modal-value connection-modal-value-accent">Guest</code>
-        </div>
-
-        <div class="connection-modal-field">
-          <div class="connection-modal-field-meta">
-            <span class="connection-modal-label">Decryption Key</span>
-            <button
-              class="connection-modal-copy"
-              type="button"
-              data-copy-value="Guest@123@12@1"
-            >
-              Copy
-            </button>
-          </div>
-          <code class="connection-modal-value connection-modal-value-accent">
-            Guest@123@12@1
-          </code>
-        </div>
-      </div>
-
-      <p class="connection-modal-note">
-        Use the guest account for preview access only. Password rotation may disable this login at
-        any time.
-      </p>
-
-      <div class="connection-modal-actions">
-        <button
-          class="connection-modal-button connection-modal-button-secondary"
-          type="button"
-          data-copy-value={`Server: cloud.pratik-labs.xyz\nUser: Guest\nPassword: Guest@123@12@1`}
-        >
-          Copy All
-        </button>
-        <a
-          class="connection-modal-button"
-          href="https://cloud.pratik-labs.xyz"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Visit
-        </a>
-      </div>
+              {card.buttonLabel}
+            </a>
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>
-
-<script is:inline>
-  const modal = document.getElementById('deployment-connection-modal');
-  const openButton = document.getElementById('deployment-open-connection');
-  const closeButton = document.getElementById('deployment-close-connection');
-  const modalPanel = modal?.querySelector('.connection-modal-panel');
-  const copyButtons = modal?.querySelectorAll('[data-copy-value]');
-  let activeTrigger = null;
-  let previousBodyOverflow = '';
-
-  const resetCopyButton = (button) => {
-    window.clearTimeout(Number(button.dataset.copyTimer));
-    button.textContent = button.dataset.defaultLabel ?? 'Copy';
-    button.dataset.copyTimer = '';
-  };
-
-  const copyValue = async (button) => {
-    const value = button.dataset.copyValue;
-
-    if (!value || !navigator.clipboard?.writeText) {
-      resetCopyButton(button);
-      button.textContent = 'Copy manually';
-      button.dataset.copyTimer = String(window.setTimeout(() => resetCopyButton(button), 2200));
-      return;
-    }
-
-    try {
-      await navigator.clipboard.writeText(value);
-
-      resetCopyButton(button);
-      button.textContent = 'Copied';
-      button.dataset.copyTimer = String(window.setTimeout(() => resetCopyButton(button), 1800));
-    } catch {
-      resetCopyButton(button);
-      button.textContent = 'Press to copy';
-      button.dataset.copyTimer = String(window.setTimeout(() => resetCopyButton(button), 2200));
-    }
-  };
-
-  const getFocusableElements = () =>
-    modalPanel
-      ? Array.from(
-          modalPanel.querySelectorAll(
-            'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
-          )
-        ).filter((element) => element instanceof HTMLElement)
-      : [];
-
-  const closeModal = () => {
-    if (!modal) {
-      return;
-    }
-
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = previousBodyOverflow;
-    activeTrigger?.focus();
-  };
-
-  const openModal = () => {
-    if (!modal) {
-      return;
-    }
-
-    activeTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    previousBodyOverflow = document.body.style.overflow;
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    modalPanel?.focus();
-  };
-
-  openButton?.addEventListener('click', openModal);
-  closeButton?.addEventListener('click', closeModal);
-
-  modal?.addEventListener('click', (event) => {
-    if (event.target === modal) {
-      closeModal();
-    }
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
-      closeModal();
-      return;
-    }
-
-    if (event.key === 'Tab' && modal && !modal.classList.contains('hidden')) {
-      const focusableElements = getFocusableElements();
-
-      if (focusableElements.length === 0 || !(document.activeElement instanceof HTMLElement)) {
-        return;
-      }
-
-      const firstElement = focusableElements[0];
-      const lastElement = focusableElements[focusableElements.length - 1];
-
-      if (event.shiftKey && document.activeElement === firstElement) {
-        event.preventDefault();
-        lastElement.focus();
-      } else if (!event.shiftKey && document.activeElement === lastElement) {
-        event.preventDefault();
-        firstElement.focus();
-      }
-    }
-  });
-
-  copyButtons?.forEach((button) => {
-    if (button instanceof HTMLButtonElement) {
-      button.dataset.defaultLabel = button.textContent?.trim() ?? 'Copy';
-      button.addEventListener('click', () => {
-        void copyValue(button);
-      });
-    }
-  });
-</script>

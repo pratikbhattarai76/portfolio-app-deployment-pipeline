@@ -731,7 +731,7 @@ html {
   .deployment-card,
   .contact-link-card,
   .project-network-node,
-  .project-network-link text {
+  .project-network-node text {
     transition: none;
   }
 
@@ -852,7 +852,7 @@ html {
 }
 
 .deployment-card {
-  @apply glass-effect relative flex h-full flex-col overflow-hidden rounded-lg p-8 transition-all;
+  @apply glass-effect relative flex h-full flex-col overflow-hidden rounded-2xl p-7 transition-all;
   touch-action: manipulation;
 }
 
@@ -894,7 +894,7 @@ html {
 }
 
 .deployment-card-header {
-  @apply mb-8 flex items-start justify-between;
+  @apply mb-6 flex items-start justify-between;
 }
 
 .deployment-card-icon-box {
@@ -928,19 +928,19 @@ html {
 }
 
 .deployment-card-title {
-  @apply mb-4 text-2xl font-bold tracking-tight transition-colors;
+  @apply mb-2 text-2xl font-bold tracking-tight transition-colors;
+}
+
+.deployment-card-host {
+  @apply mb-4 font-mono text-[11px] tracking-[0.08em] text-slate-400;
 }
 
 .deployment-card-text {
-  @apply mb-8 flex-1 text-sm leading-relaxed text-slate-400;
+  @apply mb-6 flex-1 text-sm leading-relaxed text-slate-400;
 }
 
 .deployment-card-button {
   @apply w-full rounded-sm border border-cyber-accent/40 bg-transparent px-4 py-3 text-[11px] font-sans font-semibold tracking-[0.2em] text-cyber-accent transition-all hover:bg-cyber-accent hover:text-cyber-bg;
-}
-
-.deployment-card-button-disabled {
-  @apply cursor-not-allowed border-slate-700 text-slate-500 hover:bg-transparent hover:text-slate-500;
 }
 
 .deployment-card-button-solid {
@@ -957,6 +957,7 @@ html {
 
 .tooling-title {
   @apply pb-3 text-center text-3xl font-bold tracking-tight sm:text-4xl;
+  color: var(--text-strong);
 }
 
 .tooling-groups {
@@ -965,15 +966,16 @@ html {
 
 .tooling-group {
   @apply rounded-[1.75rem] border p-5;
-  border-color: rgb(var(--color-accent-rgb) / 0.14);
+  border-color: var(--border-accent);
   background:
-    linear-gradient(180deg, rgb(var(--color-accent-rgb) / 0.08), transparent 100%),
-    var(--surface-card);
-  box-shadow: var(--glow-soft);
+    linear-gradient(180deg, rgb(var(--color-accent-rgb) / 0.1), transparent 100%),
+    var(--surface-card-strong);
+  box-shadow: var(--glow-soft), var(--card-shadow);
 }
 
 .tooling-group-title {
-  @apply mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-slate-100;
+  @apply mb-4 text-sm font-semibold uppercase tracking-[0.18em];
+  color: var(--text-strong);
 }
 
 .tooling-group-items {
@@ -981,89 +983,10 @@ html {
 }
 
 .tooling-pill {
-  @apply flex min-h-[2.75rem] items-center justify-center rounded-full border px-4 py-3 text-center font-sans text-[13px] font-medium text-slate-300;
-  border-color: rgb(var(--color-accent-rgb) / 0.14);
-  background: rgb(var(--color-accent-rgb) / 0.04);
-}
-
-.connection-modal {
-  @apply fixed inset-0 z-[100] items-center justify-center bg-cyber-bg/90 p-4 backdrop-blur-sm;
-  overscroll-behavior: contain;
-}
-
-.connection-modal-panel {
-  @apply relative w-full max-w-md overflow-hidden rounded-lg border-2 border-cyber-accent/40 p-8;
-  max-height: min(90vh, 44rem);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.connection-modal-topbar {
-  @apply absolute left-0 top-0 h-1 w-full bg-cyber-accent;
-}
-
-.connection-modal-header {
-  @apply mb-6 flex items-center justify-between gap-4;
-}
-
-.connection-modal-title {
-  @apply flex items-center gap-2 font-sans text-lg uppercase tracking-[0.2em] text-cyber-accent;
-}
-
-.connection-modal-close {
-  @apply text-slate-500 transition-colors hover:text-cyber-accent;
-}
-
-.connection-modal-intro {
-  @apply mb-6 text-sm leading-relaxed text-slate-400;
-}
-
-.connection-modal-details {
-  @apply space-y-6 font-sans;
-}
-
-.connection-modal-field {
-  @apply space-y-2;
-}
-
-.connection-modal-field-meta {
-  @apply flex items-center justify-between gap-4;
-}
-
-.connection-modal-label {
-  @apply block text-[10px] uppercase tracking-[0.2em] text-slate-500;
-}
-
-.connection-modal-value {
-  @apply block border border-cyber-border bg-slate-900/60 p-3 text-sm text-white;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.connection-modal-value-accent {
-  @apply text-cyber-accent;
-}
-
-.connection-modal-copy {
-  @apply inline-flex shrink-0 items-center rounded-sm border border-cyber-accent/35 px-3 py-1 font-sans text-[10px] uppercase tracking-[0.18em] text-cyber-accent transition-colors hover:bg-cyber-accent/10;
-  touch-action: manipulation;
-}
-
-.connection-modal-note {
-  @apply mt-6 text-xs leading-relaxed text-slate-500;
-}
-
-.connection-modal-actions {
-  @apply mt-8 flex flex-col-reverse gap-3 border-t border-cyber-border pt-6 sm:flex-row sm:justify-end;
-}
-
-.connection-modal-button {
-  @apply inline-flex w-full items-center justify-center rounded-sm bg-cyber-accent px-6 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-cyber-bg transition-all hover:brightness-110 sm:w-auto;
-  touch-action: manipulation;
-}
-
-.connection-modal-button-secondary {
-  @apply border border-cyber-accent/35 bg-transparent text-cyber-accent hover:bg-cyber-accent/10;
+  @apply flex min-h-[2.75rem] items-center justify-center rounded-full border px-4 py-3 text-center font-sans text-[13px] font-medium;
+  color: var(--text-secondary);
+  border-color: var(--border-accent);
+  background: var(--surface-muted);
 }
 
 .projects-section {
@@ -1261,31 +1184,6 @@ html {
   animation: project-node-app 4.8s ease-in-out infinite;
 }
 
-.project-network-link {
-  cursor: pointer;
-}
-
-.project-network-link g {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.project-network-link text {
-  transition: fill 0.22s ease;
-}
-
-.project-network-link:hover .project-network-node,
-.project-network-link:focus-visible .project-network-node {
-  fill: rgba(34, 211, 238, 0.12);
-  stroke: #67e8f9;
-  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.18));
-}
-
-.project-network-link:hover text,
-.project-network-link:focus-visible text {
-  fill: #67e8f9;
-}
-
 .project-stack {
   @apply border-t border-cyber-border/20 py-12;
 }
@@ -1379,10 +1277,6 @@ html {
 
 .contact-panel {
   @apply relative overflow-hidden rounded-xl p-8 sm:p-10;
-}
-
-.contact-panel-badge {
-  @apply absolute right-6 top-5 font-sans text-[10px] font-medium tracking-[0.06em] text-slate-600;
 }
 
 .contact-panel-title {
@@ -1558,33 +1452,6 @@ html {
     letter-spacing: 0.14em;
   }
 
-  .connection-modal {
-    align-items: flex-end;
-    padding: 0.75rem;
-    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
-  }
-
-  .connection-modal-panel {
-    border-radius: 1rem;
-    padding: 1.25rem;
-  }
-
-  .connection-modal-header {
-    margin-bottom: 1rem;
-    align-items: flex-start;
-  }
-
-  .connection-modal-title {
-    font-size: 0.95rem;
-    letter-spacing: 0.14em;
-  }
-
-  .connection-modal-field-meta {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
   .contact-title {
     font-size: 2.6rem;
   }
@@ -1595,12 +1462,6 @@ html {
 
   .contact-panel {
     padding: 1.25rem;
-  }
-
-  .contact-panel-badge {
-    position: static;
-    display: inline-block;
-    margin-bottom: 0.75rem;
   }
 
   .contact-panel-title {
@@ -1744,43 +1605,6 @@ html {
 
   50% {
     opacity: 1;
-  }
-}
-
-@keyframes project-node-edge {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 0 rgba(34, 211, 238, 0));
-  }
-
-  50% {
-    filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.28));
-  }
-}
-
-@keyframes project-node-core {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 0 rgba(34, 211, 238, 0));
-    stroke: #22d3ee;
-  }
-
-  50% {
-    filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.35));
-    stroke: #67e8f9;
-  }
-}
-
-@keyframes project-node-app {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 0 rgba(34, 211, 238, 0));
-    stroke: #1e293b;
-  }
-
-  50% {
-    filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.12));
-    stroke: rgba(34, 211, 238, 0.4);
   }
 }
 
@@ -2163,7 +1987,6 @@ html.theme-switching *::after {
 
 .hero-description,
 .deployment-card-text,
-.connection-modal-intro,
 .project-feature-description,
 .contact-description,
 .contact-toast-message {
@@ -2182,11 +2005,8 @@ html.theme-switching *::after {
   transform: translateY(-1px);
 }
 
-.connection-modal-label,
-.connection-modal-note,
 .project-stack-title,
 .contact-link-label,
-.contact-panel-badge,
 .contact-feedback,
 .site-footer-text {
   color: var(--text-subtle);
@@ -2199,9 +2019,7 @@ html.theme-switching *::after {
   color: var(--text-secondary);
 }
 
-.project-feature-description strong,
-.project-network-link:hover text,
-.project-network-link:focus-visible text {
+.project-feature-description strong {
   color: var(--text-strong);
 }
 
@@ -2224,28 +2042,6 @@ html.theme-switching *::after {
 .deployment-card-interactive:hover .deployment-card-title,
 .deployment-card-interactive:focus-within .deployment-card-title {
   color: rgb(var(--color-accent-rgb));
-}
-
-.deployment-card-button-disabled {
-  border-color: var(--border-soft);
-  color: var(--text-subtle);
-}
-
-.connection-modal {
-  background: rgb(var(--color-page-base-rgb) / 0.88);
-}
-
-.connection-modal-panel {
-  background: var(--surface-panel-strong);
-}
-
-.connection-modal-close {
-  color: var(--text-subtle);
-}
-
-.connection-modal-value {
-  background: var(--surface-input);
-  color: var(--text-strong);
 }
 
 .projects-header {
@@ -2297,18 +2093,6 @@ html.theme-switching *::after {
   stroke: var(--diagram-accent);
 }
 
-.project-network-link:hover .project-network-node,
-.project-network-link:focus-visible .project-network-node {
-  fill: rgb(var(--color-accent-rgb) / 0.12);
-  stroke: var(--diagram-packet);
-  filter: drop-shadow(0 0 8px rgb(var(--color-accent-rgb) / 0.18));
-}
-
-.project-network-link:hover text,
-.project-network-link:focus-visible text {
-  fill: var(--diagram-packet);
-}
-
 .contact-link-card:hover,
 .contact-link-card:focus-visible {
   border-color: rgb(var(--color-accent-rgb) / 0.28);
@@ -2358,9 +2142,8 @@ html.theme-switching *::after {
 .theme-toggle,
 .glass-effect,
 .deployment-card,
-.connection-modal,
-.connection-modal-panel,
-.connection-modal-value,
+.tooling-group,
+.tooling-pill,
 .project-feature-link,
 .project-pillar,
 .project-network-panel,

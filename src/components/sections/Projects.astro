@@ -18,7 +18,7 @@ const operationsObservabilityItems = [
 const privateCloudStackGroups = [
   {
     label: 'Container Platform',
-    items: ['Docker Engine', 'Docker Compose', 'Portainer'],
+    items: ['Docker Engine', 'Docker Compose'],
   },
   {
     label: 'Ingress & Networking',
@@ -91,10 +91,10 @@ const portfolioRuntimeItems = [
 ];
 
 const portfolioDeliveryWorkflowItems = [
-  'Multi-stage Docker build',
-  'GitHub Actions verification pipeline',
+  'GitHub Actions image build and verification',
   'GHCR image publishing',
-  'Cron + Bash pull-based updates',
+  'Automated manifest updates in Git',
+  'Argo CD auto-sync to k3s workloads',
 ];
 
 const portfolioStackGroups = [
@@ -112,7 +112,48 @@ const portfolioStackGroups = [
   },
   {
     label: 'Operations',
-    items: ['Docker Compose', 'Bash Script', 'Cron'],
+    items: ['Kubernetes (k3s)', 'Argo CD', 'Helm'],
+  },
+];
+
+const k8sInfrastructureGitOpsItems = [
+  'Ansible-automated server provisioning and k3s installation',
+  'Argo CD with auto-sync managing all deployments from Git',
+  'CI/CD pipeline: GitHub Actions -> GHCR -> manifest update -> Argo CD deploys',
+  'Remote kubectl access via Tailscale',
+];
+
+const k8sDeployedServicesItems = [
+  'Portfolio app with automated CI/CD pipeline',
+  'Immich photo management with GPU-accelerated ML',
+  'Prometheus, Grafana, Alertmanager monitoring stack',
+  'Uptime Kuma with Gotify push notifications',
+];
+
+const k8sStackGroups = [
+  {
+    label: 'Orchestration',
+    items: ['Kubernetes (k3s)'],
+  },
+  {
+    label: 'GitOps',
+    items: ['Argo CD'],
+  },
+  {
+    label: 'Ingress',
+    items: ['Traefik', 'Cloudflare Tunnel'],
+  },
+  {
+    label: 'Monitoring',
+    items: ['Prometheus', 'Grafana', 'Alertmanager'],
+  },
+  {
+    label: 'Automation',
+    items: ['Ansible', 'GitHub Actions'],
+  },
+  {
+    label: 'Infrastructure',
+    items: ['Ubuntu Server', 'Tailscale'],
   },
 ];
 ---
@@ -125,7 +166,198 @@ const portfolioStackGroups = [
       </div>
     </header>
 
-    <section id="private-cloud" class="project-feature reveal-section border-t border-cyber-border/20" style="order: 3;">
+    <section id="k8s-homelab-platform" class="project-feature reveal-section border-t border-cyber-border/20" style="order: 1;">
+      <div class="project-feature-heading">
+        <div class="project-feature-heading-row">
+          <h3 class="project-feature-title reveal-item" style="--reveal-order: 0;">
+            Kubernetes Homelab Platform
+          </h3>
+          <a
+            class="project-feature-link btn-glow-hover reveal-item"
+            href={siteConfig.k8sHomelabPlatformUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style="--reveal-order: 1;"
+          >
+            <img
+              src="/icons/github.svg"
+              alt=""
+              aria-hidden="true"
+              class="project-feature-link-icon"
+              loading="lazy"
+            />
+            <span>View on GitHub</span>
+            <span class="material-symbols-outlined project-feature-link-arrow" aria-hidden="true">
+              north_east
+            </span>
+          </a>
+        </div>
+        <div class="project-feature-rule reveal-item" style="--reveal-order: 2;" aria-hidden="true">
+        </div>
+      </div>
+
+      <div class="project-feature-layout">
+        <div class="project-feature-details">
+          <p class="project-feature-description reveal-item" style="--reveal-order: 3;">
+            Single-node k3s platform on bare metal managed with infrastructure as code. Server
+            provisioning and cluster bootstrapping are automated with Ansible, while Argo CD
+            continuously reconciles workloads from Git. The delivery pipeline builds and publishes
+            images, updates manifests, and promotes changes into the cluster with auditable GitOps
+            history.
+          </p>
+
+          <div class="project-pillars">
+            <article class="project-pillar glass-effect reveal-item" style="--reveal-order: 4;">
+              <h4 class="project-pillar-title">Infrastructure &amp; GitOps</h4>
+              <ul class="project-pillar-list">
+                {
+                  k8sInfrastructureGitOpsItems.map((item) => (
+                    <li class="project-pillar-item">
+                      <span class="project-pillar-arrow" aria-hidden="true">
+                        →
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </article>
+
+            <article class="project-pillar glass-effect reveal-item" style="--reveal-order: 5;">
+              <h4 class="project-pillar-title">Deployed Services</h4>
+              <ul class="project-pillar-list">
+                {
+                  k8sDeployedServicesItems.map((item) => (
+                    <li class="project-pillar-item">
+                      <span class="project-pillar-arrow" aria-hidden="true">
+                        →
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <div class="project-network-panel glass-effect reveal-item" style="--reveal-order: 6;">
+          <div class="project-network-label">
+            <div class="project-network-indicator" aria-hidden="true"></div>
+            <span>Platform Architecture</span>
+          </div>
+
+          <svg class="project-network-visual" viewBox="0 0 600 550" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <filter id="k8s-packet-glow" x="-200%" y="-200%" width="400%" height="400%">
+                <feGaussianBlur stdDeviation="2" result="blur"></feGaussianBlur>
+                <feMerge>
+                  <feMergeNode in="blur"></feMergeNode>
+                  <feMergeNode in="SourceGraphic"></feMergeNode>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <g transform="translate(300, 90)">
+              <rect class="project-network-node project-network-node-edge" fill="var(--diagram-node-fill)" height="34" rx="5" stroke="var(--diagram-accent)" stroke-width="1" width="126" x="-63" y="-17"></rect>
+              <text fill="var(--diagram-accent)" font-family="Inter" font-size="9" text-anchor="middle" dominant-baseline="middle">
+                Git Repo
+              </text>
+            </g>
+
+            <path id="k8s-flow-repo-argocd" class="project-network-line project-network-flow" d="M300,107 L300,223" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <g transform="translate(300, 240)">
+              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="34" rx="5" stroke="var(--diagram-accent)" stroke-width="1" width="140" x="-70" y="-17"></rect>
+              <text fill="var(--diagram-accent)" font-family="Inter" font-size="9" text-anchor="middle" dominant-baseline="middle">
+                Argo CD
+              </text>
+            </g>
+
+            <path id="k8s-flow-argocd-cluster" class="project-network-line project-network-flow" d="M300,257 L300,376" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <rect class="project-network-boundary" x="80" y="376" width="440" height="150" rx="12" fill="var(--diagram-boundary-fill)" stroke="var(--diagram-boundary-stroke)" stroke-width="1"></rect>
+            <text x="98" y="394" fill="var(--diagram-boundary-strong)" font-family="Inter" font-size="9" font-weight="bold">
+              k3s Cluster (Bare Metal)
+            </text>
+
+            <g transform="translate(170, 432)">
+              <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="28" rx="3" stroke="var(--diagram-app-stroke)" stroke-width="1" width="124" x="-62" y="-14"></rect>
+              <text fill="var(--diagram-text)" font-family="Inter" font-size="8.25" text-anchor="middle" dominant-baseline="middle">
+                Portfolio App
+              </text>
+            </g>
+            <g transform="translate(300, 432)">
+              <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="28" rx="3" stroke="var(--diagram-app-stroke)" stroke-width="1" width="98" x="-49" y="-14"></rect>
+              <text fill="var(--diagram-text)" font-family="Inter" font-size="8.25" text-anchor="middle" dominant-baseline="middle">
+                Immich
+              </text>
+            </g>
+            <g transform="translate(430, 432)">
+              <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="28" rx="3" stroke="var(--diagram-app-stroke)" stroke-width="1" width="138" x="-69" y="-14"></rect>
+              <text fill="var(--diagram-text)" font-family="Inter" font-size="8.25" text-anchor="middle" dominant-baseline="middle">
+                Prom/Graf/Alert
+              </text>
+            </g>
+            <g transform="translate(160, 486)">
+              <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="28" rx="3" stroke="var(--diagram-app-stroke)" stroke-width="1" width="108" x="-54" y="-14"></rect>
+              <text fill="var(--diagram-text)" font-family="Inter" font-size="8.25" text-anchor="middle" dominant-baseline="middle">
+                Uptime Kuma
+              </text>
+            </g>
+            <g transform="translate(300, 486)">
+              <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="28" rx="3" stroke="var(--diagram-app-stroke)" stroke-width="1" width="92" x="-46" y="-14"></rect>
+              <text fill="var(--diagram-text)" font-family="Inter" font-size="8.25" text-anchor="middle" dominant-baseline="middle">
+                Traefik
+              </text>
+            </g>
+            <g transform="translate(440, 486)">
+              <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="28" rx="3" stroke="var(--diagram-app-stroke)" stroke-width="1" width="140" x="-70" y="-14"></rect>
+              <text fill="var(--diagram-text)" font-family="Inter" font-size="8.25" text-anchor="middle" dominant-baseline="middle">
+                Cloudflare Tunnel
+              </text>
+            </g>
+
+            <circle class="project-network-packet" r="3" fill="var(--diagram-packet)" filter="url(#k8s-packet-glow)">
+              <animateMotion dur="4.8s" repeatCount="indefinite" rotate="auto" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#k8s-flow-repo-argocd"></mpath>
+              </animateMotion>
+            </circle>
+            <circle class="project-network-packet" r="2.25" fill="var(--diagram-packet)" filter="url(#k8s-packet-glow)">
+              <animateMotion dur="4.7s" repeatCount="indefinite" rotate="auto" begin="1.2s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
+                <mpath href="#k8s-flow-argocd-cluster"></mpath>
+              </animateMotion>
+            </circle>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="k8s-homelab-platform-stack" class="project-stack reveal-section" style="order: 2;">
+      <h4 class="project-stack-title reveal-item" style="--reveal-order: 0;">Infrastructure Stack</h4>
+
+      <div class="project-stack-grid">
+        {
+          k8sStackGroups.map((group, groupIndex) => (
+            <section class="project-stack-group reveal-item" style={`--reveal-order: ${groupIndex + 1};`}>
+              <h5 class="project-stack-group-title">
+                <span class="project-stack-group-rule" aria-hidden="true"></span>
+                {group.label}
+              </h5>
+
+              <ul class="project-stack-list">
+                {group.items.map((item) => (
+                  <li class="project-stack-item">
+                    <span class="project-stack-item-dot" aria-hidden="true"></span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="private-cloud" class="project-feature reveal-section border-t border-cyber-border/20" style="order: 5;">
       <div class="project-feature-heading">
         <div class="project-feature-heading-row">
           <h3 class="project-feature-title reveal-item" style="--reveal-order: 0;">
@@ -339,24 +571,21 @@ const portfolioStackGroups = [
               docker-cloudflared bridge
             </text>
 
-            <a class="project-network-link" href="https://proxy.pratik-labs.xyz" target="_blank" rel="noopener noreferrer">
-              <g transform="translate(300, 300)">
-                <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="170" x="-85" y="-15"></rect>
-                <text
-                  fill="var(--diagram-accent)"
-                  font-family="Inter"
-                  font-size="8"
-                  text-anchor="middle"
-                  dominant-baseline="middle"
-                >
-                  Nginx Proxy Manager
-                </text>
-              </g>
-            </a>
+            <g transform="translate(300, 300)">
+              <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="170" x="-85" y="-15"></rect>
+              <text
+                fill="var(--diagram-accent)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Nginx Proxy Manager
+              </text>
+            </g>
 
             <path id="project-flow-vaultwarden" class="project-network-line project-network-flow" d="M300,315 L120,388" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
             <path id="project-flow-nextcloud" class="project-network-line project-network-flow" d="M300,315 L240,388" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
-            <path id="project-flow-portainer" class="project-network-line project-network-flow" d="M300,315 L360,388" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
             <path id="project-flow-grafana" class="project-network-line project-network-flow" d="M300,315 L480,388" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
             <path id="project-flow-portfolio" class="project-network-line project-network-flow" d="M300,315 L300,422 L180,422 L180,436" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
             <path id="project-flow-kuma" class="project-network-line project-network-flow" d="M300,315 L300,422 L420,422 L420,436" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
@@ -364,95 +593,70 @@ const portfolioStackGroups = [
               docker-proxy network
             </text>
 
-            <a class="project-network-link" href="https://vault.pratik-labs.xyz" target="_blank" rel="noopener noreferrer">
-              <g transform="translate(120, 400)">
-                <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="85" x="-42" y="-12"></rect>
-                <text
-                  fill="var(--diagram-text)"
-                  font-family="Inter"
-                  font-size="8"
-                  text-anchor="middle"
-                  dominant-baseline="middle"
-                >
-                  Vaultwarden
-                </text>
-              </g>
-            </a>
+            <g transform="translate(120, 400)">
+              <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="85" x="-42" y="-12"></rect>
+              <text
+                fill="var(--diagram-text)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Vaultwarden
+              </text>
+            </g>
 
-            <a class="project-network-link" href="https://cloud.pratik-labs.xyz" target="_blank" rel="noopener noreferrer">
-              <g transform="translate(240, 400)">
-                <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="85" x="-42" y="-12"></rect>
-                <text
-                  fill="var(--diagram-text)"
-                  font-family="Inter"
-                  font-size="8"
-                  text-anchor="middle"
-                  dominant-baseline="middle"
-                >
-                  Nextcloud
-                </text>
-              </g>
-            </a>
+            <g transform="translate(240, 400)">
+              <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="85" x="-42" y="-12"></rect>
+              <text
+                fill="var(--diagram-text)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Nextcloud
+              </text>
+            </g>
 
-            <a class="project-network-link" href="https://portainer.pratik-labs.xyz" target="_blank" rel="noopener noreferrer">
-              <g transform="translate(360, 400)">
-                <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="85" x="-42" y="-12"></rect>
-                <text
-                  fill="var(--diagram-text)"
-                  font-family="Inter"
-                  font-size="8"
-                  text-anchor="middle"
-                  dominant-baseline="middle"
-                >
-                  Portainer
-                </text>
-              </g>
-            </a>
+            <g transform="translate(480, 400)">
+              <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="85" x="-42" y="-12"></rect>
+              <text
+                fill="var(--diagram-text)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Grafana
+              </text>
+            </g>
 
-            <a class="project-network-link" href="https://monitor.pratik-labs.xyz" target="_blank" rel="noopener noreferrer">
-              <g transform="translate(480, 400)">
-                <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="85" x="-42" y="-12"></rect>
-                <text
-                  fill="var(--diagram-text)"
-                  font-family="Inter"
-                  font-size="8"
-                  text-anchor="middle"
-                  dominant-baseline="middle"
-                >
-                  Grafana
-                </text>
-              </g>
-            </a>
+            <g transform="translate(180, 448)">
+              <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="78" x="-39" y="-12"></rect>
+              <text
+                fill="var(--diagram-text)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Portfolio
+              </text>
+            </g>
 
-            <a class="project-network-link" href="https://web.pratik-labs.xyz" target="_blank" rel="noopener noreferrer">
-              <g transform="translate(180, 448)">
-                <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="78" x="-39" y="-12"></rect>
-                <text
-                  fill="var(--diagram-text)"
-                  font-family="Inter"
-                  font-size="8"
-                  text-anchor="middle"
-                  dominant-baseline="middle"
-                >
-                  Portfolio
-                </text>
-              </g>
-            </a>
-
-            <a class="project-network-link" href="https://status.pratik-labs.xyz" target="_blank" rel="noopener noreferrer">
-              <g transform="translate(420, 448)">
-                <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="95" x="-47" y="-12"></rect>
-                <text
-                  fill="var(--diagram-text)"
-                  font-family="Inter"
-                  font-size="8"
-                  text-anchor="middle"
-                  dominant-baseline="middle"
-                >
-                  Uptime Kuma
-                </text>
-              </g>
-            </a>
+            <g transform="translate(420, 448)">
+              <rect class="project-network-node project-network-node-app" fill="var(--diagram-node-fill)" height="25" rx="2" stroke="var(--diagram-app-stroke)" stroke-width="1" width="95" x="-47" y="-12"></rect>
+              <text
+                fill="var(--diagram-text)"
+                font-family="Inter"
+                font-size="8"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                Uptime Kuma
+              </text>
+            </g>
 
             <circle class="project-network-packet" r="3" fill="var(--diagram-packet)" filter="url(#project-packet-glow)">
               <animateMotion dur="4.8s" repeatCount="indefinite" rotate="auto" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
@@ -480,11 +684,6 @@ const portfolioStackGroups = [
               </animateMotion>
             </circle>
             <circle class="project-network-packet" r="2.25" fill="var(--diagram-packet)" filter="url(#project-packet-glow)">
-              <animateMotion dur="5.1s" repeatCount="indefinite" rotate="auto" begin="1s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
-                <mpath href="#project-flow-portainer"></mpath>
-              </animateMotion>
-            </circle>
-            <circle class="project-network-packet" r="2.25" fill="var(--diagram-packet)" filter="url(#project-packet-glow)">
               <animateMotion dur="5.4s" repeatCount="indefinite" rotate="auto" begin="0.2s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
                 <mpath href="#project-flow-grafana"></mpath>
               </animateMotion>
@@ -504,8 +703,8 @@ const portfolioStackGroups = [
       </div>
     </section>
 
-    <section id="tech-stack" class="project-stack reveal-section" style="order: 4;">
-      <h4 class="project-stack-title reveal-item" style="--reveal-order: 0;">Infrastructure Stack</h4>
+    <section id="tech-stack" class="project-stack reveal-section" style="order: 6;">
+      <h4 class="project-stack-title reveal-item" style="--reveal-order: 0;">Stack &amp; Dependencies</h4>
 
       <div class="project-stack-grid">
         {
@@ -530,7 +729,11 @@ const portfolioStackGroups = [
       </div>
     </section>
 
-    <section id="malaideu" class="project-feature reveal-section" style="order: 1;">
+    <section
+      id="malaideu"
+      class="project-feature reveal-section border-t border-cyber-border/20"
+      style="order: 3;"
+    >
       <div class="project-feature-heading">
         <div class="project-feature-heading-row">
           <h3 class="project-feature-title reveal-item" style="--reveal-order: 0;">
@@ -556,19 +759,6 @@ const portfolioStackGroups = [
                 north_east
               </span>
             </a>
-
-            <a
-              class="project-feature-link btn-glow-hover reveal-item"
-              href={siteConfig.malaiDeuLiveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style="--reveal-order: 2;"
-            >
-              <span>Live Site</span>
-              <span class="material-symbols-outlined project-feature-link-arrow" aria-hidden="true">
-                north_east
-              </span>
-            </a>
           </div>
         </div>
         <div class="project-feature-rule reveal-item" style="--reveal-order: 3;" aria-hidden="true">
@@ -578,11 +768,10 @@ const portfolioStackGroups = [
       <div class="project-feature-layout">
         <div class="project-feature-details">
           <p class="project-feature-description reveal-item" style="--reveal-order: 4;">
-            Deployed a cloud-based file upload system on AWS using Docker, EC2, S3, and IAM, with
-            CI/CD automation through GitHub Actions and GHCR. Traffic is routed via Application
-            Load Balancer (ALB). The project focuses on secure file delivery, containerized
-            deployment, image-based updates, and domain/HTTPS integration through Cloudflare and
-            ALB.
+            Cloud-based file upload system running on AWS with Dockerized workloads on EC2, object
+            storage in S3, and IAM-scoped access controls. Delivery is automated through GitHub
+            Actions and GHCR, with traffic routed through Cloudflare and ALB. The project
+            emphasizes secure file handling and repeatable container deployments.
           </p>
 
           <div class="project-pillars">
@@ -817,7 +1006,7 @@ const portfolioStackGroups = [
       </div>
     </section>
 
-    <section id="malaideu-stack" class="project-stack reveal-section" style="order: 2;">
+    <section id="malaideu-stack" class="project-stack reveal-section" style="order: 4;">
       <h4 class="project-stack-title reveal-item" style="--reveal-order: 0;">Stack &amp; Dependencies</h4>
 
       <div class="project-stack-grid">
@@ -843,11 +1032,11 @@ const portfolioStackGroups = [
       </div>
     </section>
 
-    <section id="portfolio-application" class="project-feature reveal-section border-t border-cyber-border/20" style="order: 5;">
+    <section id="portfolio-application" class="project-feature reveal-section border-t border-cyber-border/20" style="order: 7;">
       <div class="project-feature-heading">
         <div class="project-feature-heading-row">
           <h3 class="project-feature-title reveal-item" style="--reveal-order: 0;">
-            Portfolio Application
+            Portfolio Application - Argo CD GitOps Deployment
           </h3>
           <div class="project-feature-link-group">
             <a
@@ -891,9 +1080,9 @@ const portfolioStackGroups = [
       <div class="project-feature-layout">
         <div class="project-feature-details">
           <p class="project-feature-description reveal-item" style="--reveal-order: 4;">
-            A containerized portfolio website deployed on a self-hosted server using Docker and a
-            pull-based CI/CD workflow. The project focuses on image packaging, GitHub Actions
-            automation, GHCR publishing, and scheduled server-side updates through Bash and cron.
+            A containerized portfolio website deployed on a Kubernetes cluster using Argo CD for
+            GitOps delivery. Code changes trigger GitHub Actions to build and publish the image,
+            update deployment manifests, and let Argo CD sync the release into the cluster.
           </p>
 
           <div class="project-pillars">
@@ -934,7 +1123,7 @@ const portfolioStackGroups = [
         <div class="project-network-panel glass-effect reveal-item" style="--reveal-order: 7;">
           <div class="project-network-label">
             <div class="project-network-indicator" aria-hidden="true"></div>
-            <span>Pull-Based Deployment Workflow</span>
+            <span>System Architecture</span>
           </div>
 
           <svg class="project-network-visual" viewBox="0 0 600 550" preserveAspectRatio="xMidYMid meet">
@@ -971,7 +1160,7 @@ const portfolioStackGroups = [
                 text-anchor="middle"
                 dominant-baseline="middle"
               >
-                Git Push
+                Source Commit
               </text>
               <circle cx="0" cy="-3.5" r="3" fill="none" stroke="var(--diagram-text)" stroke-width="1"></circle>
               <path
@@ -1013,7 +1202,7 @@ const portfolioStackGroups = [
               </text>
             </g>
 
-            <path id="portfolio-flow-server" class="project-network-line project-network-flow" d="M300,184 L300,235" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="portfolio-flow-manifest" class="project-network-line project-network-flow" d="M300,184 L300,235" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
             <g transform="translate(300, 250)">
               <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="150" x="-75" y="-15"></rect>
               <text
@@ -1023,11 +1212,11 @@ const portfolioStackGroups = [
                 text-anchor="middle"
                 dominant-baseline="middle"
               >
-                Cron Job on Server
+                Manifest Update
               </text>
             </g>
 
-            <path id="portfolio-flow-bash" class="project-network-line project-network-flow" d="M300,265 L300,311" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="portfolio-flow-argocd" class="project-network-line project-network-flow" d="M300,265 L300,311" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
 
             <g transform="translate(300, 326)">
               <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="150" x="-75" y="-15"></rect>
@@ -1038,11 +1227,11 @@ const portfolioStackGroups = [
                 text-anchor="middle"
                 dominant-baseline="middle"
               >
-                Bash Update Script
+                Argo CD
               </text>
             </g>
 
-            <path id="portfolio-flow-compose" class="project-network-line project-network-flow" d="M300,341 L300,387" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="portfolio-flow-k8s" class="project-network-line project-network-flow" d="M300,341 L300,387" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
 
             <g transform="translate(300, 402)">
               <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="140" x="-70" y="-15"></rect>
@@ -1053,11 +1242,11 @@ const portfolioStackGroups = [
                 text-anchor="middle"
                 dominant-baseline="middle"
               >
-                Docker Compose
+                Kubernetes (k3s)
               </text>
             </g>
 
-            <path id="portfolio-flow-container" class="project-network-line project-network-flow" d="M300,417 L300,449" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
+            <path id="portfolio-flow-pod" class="project-network-line project-network-flow" d="M300,417 L300,449" fill="none" stroke="var(--diagram-accent)" stroke-width="1"></path>
 
             <g transform="translate(300, 464)">
               <rect class="project-network-node project-network-node-core" fill="var(--diagram-node-fill)" height="30" rx="4" stroke="var(--diagram-accent)" stroke-width="1" width="150" x="-75" y="-15"></rect>
@@ -1068,7 +1257,7 @@ const portfolioStackGroups = [
                 text-anchor="middle"
                 dominant-baseline="middle"
               >
-                Portfolio Container
+                Kubernetes Pod
               </text>
             </g>
 
@@ -1084,22 +1273,22 @@ const portfolioStackGroups = [
             </circle>
             <circle class="project-network-packet" r="2.75" fill="var(--diagram-packet)" filter="url(#portfolio-packet-glow)">
               <animateMotion dur="4.6s" repeatCount="indefinite" rotate="auto" begin="0.55s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
-                <mpath href="#portfolio-flow-server"></mpath>
+                <mpath href="#portfolio-flow-manifest"></mpath>
               </animateMotion>
             </circle>
             <circle class="project-network-packet" r="2.5" fill="var(--diagram-packet)" filter="url(#portfolio-packet-glow)">
               <animateMotion dur="4.3s" repeatCount="indefinite" rotate="auto" begin="0.85s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
-                <mpath href="#portfolio-flow-bash"></mpath>
+                <mpath href="#portfolio-flow-argocd"></mpath>
               </animateMotion>
             </circle>
             <circle class="project-network-packet" r="2.5" fill="var(--diagram-packet)" filter="url(#portfolio-packet-glow)">
               <animateMotion dur="4.5s" repeatCount="indefinite" rotate="auto" begin="1.1s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
-                <mpath href="#portfolio-flow-compose"></mpath>
+                <mpath href="#portfolio-flow-k8s"></mpath>
               </animateMotion>
             </circle>
             <circle class="project-network-packet" r="2.5" fill="var(--diagram-packet)" filter="url(#portfolio-packet-glow)">
               <animateMotion dur="4.2s" repeatCount="indefinite" rotate="auto" begin="1.35s" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
-                <mpath href="#portfolio-flow-container"></mpath>
+                <mpath href="#portfolio-flow-pod"></mpath>
               </animateMotion>
             </circle>
           </svg>
@@ -1107,7 +1296,7 @@ const portfolioStackGroups = [
       </div>
     </section>
 
-    <section id="portfolio-application-stack" class="project-stack reveal-section" style="order: 6;">
+    <section id="portfolio-application-stack" class="project-stack reveal-section" style="order: 8;">
       <h4 class="project-stack-title reveal-item" style="--reveal-order: 0;">Stack &amp; Dependencies</h4>
 
       <div class="project-stack-grid">

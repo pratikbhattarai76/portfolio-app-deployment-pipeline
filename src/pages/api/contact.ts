@@ -55,6 +55,7 @@ const createTransport = (env: ReturnType<typeof getEnv>) => {
     host: env.SMTP_HOST,
     port,
     secure,
+    family: 4,
     auth: {
       user: env.SMTP_USER,
       pass: env.SMTP_PASS,
